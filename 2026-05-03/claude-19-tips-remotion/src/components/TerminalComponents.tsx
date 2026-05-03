@@ -507,7 +507,7 @@ const StepList: React.FC<{ steps: string[]; checked?: boolean }> = ({
   return (
     <div style={{ display: "grid", gap: 16 }}>
       {steps.map((step, index) => {
-        const active = frame > 18 + index * 18;
+        const active = frame >= index * 18;
         return (
           <div
             key={step}

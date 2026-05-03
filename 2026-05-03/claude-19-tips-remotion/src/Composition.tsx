@@ -13,7 +13,7 @@ export const Claude19TipsVideo: React.FC = () => {
     extrapolateRight: "clamp",
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   });
-  const opacity = interpolate(frame, [0, 26], [0, 1], {
+  const opacity = interpolate(frame, [0, 26], [0.7, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -45,7 +45,7 @@ export const Claude19TipsVideo: React.FC = () => {
               transform: `translateY(${titleIn}px)`,
             }}
           >
-            Motion-only / no source video / no rendered subtitles
+            Claude Code 工作流
           </div>
           <h1
             style={{
@@ -93,8 +93,8 @@ export const Claude19TipsVideo: React.FC = () => {
               transform: `translateY(${titleIn}px)`,
             }}
           >
-            {TIP_TIMELINE.length} tips paced from the fixed SRT timeline.
-            Visuals stay clear for DaVinci host and subtitle layers.
+            非程序员高频使用技巧，按正式口播节奏编排。
+            右侧保留人物叠加空间。
           </p>
         </SafeStage>
       </Sequence>
