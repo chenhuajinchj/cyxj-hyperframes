@@ -1,17 +1,18 @@
 import "./index.css";
 import { Composition } from "remotion";
-import { MyComposition } from "./Composition";
+import { Claude19TipsVideo } from "./Composition";
+import { VIDEO_META } from "./data/timeline.generated";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
       <Composition
-        id="MyComp"
-        component={MyComposition}
-        durationInFrames={60}
-        fps={30}
-        width={1280}
-        height={720}
+        id="Claude19Tips"
+        component={Claude19TipsVideo}
+        durationInFrames={VIDEO_META.durationInFrames}
+        fps={VIDEO_META.fps}
+        width={VIDEO_META.width}
+        height={VIDEO_META.height}
       />
     </>
   );
