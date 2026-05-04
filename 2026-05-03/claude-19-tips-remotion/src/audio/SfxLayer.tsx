@@ -11,8 +11,13 @@ export const SfxLayer: React.FC = () => {
       {cues.map((cue) => {
         const sfx = sfxForCue(cue);
         return (
-          <Sequence key={cue.id} from={msToFrame(cue.startMs)} durationInFrames={18}>
-            <Audio src={staticFile(sfx.file)} volume={() => sfx.volume} />
+          <Sequence
+            key={cue.id}
+            from={msToFrame(cue.startMs)}
+            durationInFrames={18}
+            showInTimeline={false}
+          >
+            <Audio src={staticFile(sfx.file)} volume={() => sfx.volume} showInTimeline={false} />
           </Sequence>
         );
       })}

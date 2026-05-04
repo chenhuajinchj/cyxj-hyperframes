@@ -29,7 +29,7 @@ export const Claude19TipsVideo: React.FC = () => {
       }}
     >
       <WarmBackground />
-      <Audio src={staticFile(AUDIO_ASSETS.referenceVoice)} volume={1} />
+      <Audio src={staticFile(AUDIO_ASSETS.referenceVoice)} volume={1} showInTimeline={false} />
       <SfxLayer />
       <Sequence durationInFrames={msToFrame(TIP_TIMELINE[0].startMs)}>
         <MotionStage>
