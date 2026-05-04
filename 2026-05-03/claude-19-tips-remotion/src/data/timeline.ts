@@ -36,9 +36,31 @@ export type TipNode = {
   durationMs: number;
   keywords: string[];
   narration: string;
+  cues: MotionCue[];
 };
 
-type TipSeed = Omit<TipNode, "endMs" | "durationMs" | "narration">;
+export type MotionCueKind =
+  | "command"
+  | "terminal-output"
+  | "panel-enter"
+  | "metric-change"
+  | "check-item"
+  | "compare"
+  | "branch"
+  | "notification"
+  | "transition";
+
+export type MotionCue = {
+  id: string;
+  tipSlug: string;
+  startMs: number;
+  endMs: number;
+  kind: MotionCueKind;
+  text: string;
+  emphasis: "low" | "medium" | "high";
+};
+
+type TipSeed = Omit<TipNode, "endMs" | "durationMs" | "narration" | "cues">;
 
 const TIP_SEEDS: TipSeed[] = [
   {
@@ -217,10 +239,11 @@ export const loadFixedCaptions = (): Caption[] => {
 export const buildTipTimeline = (captions: Caption[]): TipNode[] => {
   return TIP_SEEDS.map((seed, index) => {
     const endMs = TIP_SEEDS[index + 1]?.startMs ?? VIDEO_END_MS;
+    const tipCaptions = captions.filter(
+      (caption) => caption.startMs >= seed.startMs && caption.startMs < endMs,
+    );
     const narration = captions
-      .filter(
-        (caption) => caption.startMs >= seed.startMs && caption.startMs < endMs,
-      )
+      .filter((caption) => caption.startMs >= seed.startMs && caption.startMs < endMs)
       .map((caption) => caption.text.trim())
       .filter(Boolean)
       .join(" ");
@@ -230,6 +253,73 @@ export const buildTipTimeline = (captions: Caption[]): TipNode[] => {
       endMs,
       durationMs: endMs - seed.startMs,
       narration,
+      cues: buildMotionCues(seed, endMs, tipCaptions),
+    };
+  });
+};
+
+const cueKindsForTip = (seed: TipSeed): MotionCueKind[] => {
+  switch (seed.slug) {
+    case "statusline":
+      return ["command", "metric-change", "terminal-output", "metric-change", "transition"];
+    case "commit":
+      return ["command", "terminal-output", "branch", "terminal-output", "transition"];
+    case "clear":
+      return ["command", "metric-change", "panel-enter", "transition"];
+    case "plan-mode":
+      return ["command", "panel-enter", "check-item", "check-item", "transition"];
+    case "ask-questions":
+      return ["panel-enter", "check-item", "check-item", "transition"];
+    case "self-check":
+      return ["panel-enter", "check-item", "check-item", "check-item", "transition"];
+    case "hooks":
+      return ["command", "panel-enter", "notification", "transition"];
+    case "worktree":
+      return ["command", "branch", "branch", "terminal-output", "transition"];
+    case "api-vs-mcp":
+      return ["compare", "metric-change", "compare", "transition"];
+    case "esc-stop":
+      return ["command", "notification", "transition"];
+    case "double-esc":
+      return ["command", "branch", "transition"];
+    case "agent-teams":
+      return ["panel-enter", "branch", "check-item", "transition"];
+    case "skill-creator":
+      return ["panel-enter", "check-item", "branch", "check-item", "transition"];
+    case "remote-control":
+      return ["panel-enter", "notification", "transition"];
+    default:
+      return ["panel-enter", "terminal-output", "metric-change", "transition"];
+  }
+};
+
+const buildMotionCues = (
+  seed: TipSeed,
+  endMs: number,
+  captions: Caption[],
+): MotionCue[] => {
+  const kinds = cueKindsForTip(seed);
+  const span = Math.max(1, endMs - seed.startMs);
+  const cueCount = Math.min(7, Math.max(3, kinds.length));
+  const step = span / cueCount;
+
+  return Array.from({ length: cueCount }, (_, index) => {
+    const caption = captions[index % Math.max(1, captions.length)];
+    const cueStart = Math.round(seed.startMs + step * index);
+    const nextStart = Math.round(seed.startMs + step * (index + 1));
+    const cueEnd = Math.min(endMs, Math.max(cueStart + 360, nextStart));
+    const captionText = caption?.text.trim();
+    const fallbackText =
+      index === 0 && seed.command ? seed.command : seed.keywords[index % seed.keywords.length];
+
+    return {
+      id: `${seed.slug}-${String(index + 1).padStart(2, "0")}`,
+      tipSlug: seed.slug,
+      startMs: cueStart,
+      endMs: cueEnd,
+      kind: kinds[index % kinds.length],
+      text: captionText || fallbackText,
+      emphasis: index === 0 ? "high" : index === cueCount - 1 ? "medium" : "low",
     };
   });
 };

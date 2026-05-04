@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { SAFE_AREAS, THEME } from "./visualSystem";
+import { STAGE, THEME } from "./visualSystem";
 
 describe("Claude warm visual system", () => {
   test("uses the required warm Claude palette", () => {
@@ -11,10 +11,10 @@ describe("Claude warm visual system", () => {
     expect(THEME.colors.teal).toBe("#2F7D73");
   });
 
-  test("reserves safe regions for later human overlay and subtitles", () => {
-    expect(SAFE_AREAS.host.width).toBe(560);
-    expect(SAFE_AREAS.host.right).toBe(96);
-    expect(SAFE_AREAS.subtitle.bottom).toBe(70);
-    expect(SAFE_AREAS.subtitle.height).toBe(170);
+  test("uses a centered full-frame stage instead of host safe areas", () => {
+    expect(STAGE.maxWidth).toBeGreaterThanOrEqual(1320);
+    expect(STAGE.maxWidth).toBeLessThanOrEqual(1500);
+    expect(STAGE.minHeight).toBeGreaterThanOrEqual(720);
+    expect(STAGE.horizontalPadding).toBe(92);
   });
 });

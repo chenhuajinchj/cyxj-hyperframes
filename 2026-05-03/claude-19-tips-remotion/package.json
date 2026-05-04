@@ -28,8 +28,11 @@
   "scripts": {
     "dev": "remotion studio",
     "build": "remotion bundle",
+    "extract:audio": "bash scripts/extract-audio.sh",
+    "generate:sfx": "bash scripts/generate-sfx.sh",
+    "prepare:statusbar": "bash scripts/prepare-statusbar.sh",
     "generate:data": "tsx scripts/export-timeline.ts",
-    "render": "remotion render Claude19Tips out/claude-19-tips-motion-only.mp4",
+    "render": "remotion render Claude19Tips out/claude-19-tips-motion-only-v2.mp4",
     "still": "remotion still Claude19Tips --frame=0 --output=out/frame-0000.png",
     "test": "vitest run",
     "upgrade": "remotion upgrade",

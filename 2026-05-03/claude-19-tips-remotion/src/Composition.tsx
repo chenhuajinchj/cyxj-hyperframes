@@ -1,9 +1,11 @@
 import React from "react";
-import { AbsoluteFill, Easing, interpolate, Sequence, useCurrentFrame } from "remotion";
+import { AbsoluteFill, Audio, Easing, interpolate, Sequence, staticFile, useCurrentFrame } from "remotion";
+import { AUDIO_ASSETS } from "./audio/audioAssets";
+import { SfxLayer } from "./audio/SfxLayer";
 import { TIP_TIMELINE, VIDEO_META } from "./data/timeline.generated";
 import { TipScene } from "./scenes/TipScene";
 import { WarmBackground } from "./visual/Background";
-import { SafeStage } from "./visual/SafeStage";
+import { LightStreakTransition, MotionStage } from "./visual/MotionStage";
 import { SHADOWS, THEME } from "./visual/visualSystem";
 
 export const Claude19TipsVideo: React.FC = () => {
@@ -27,12 +29,14 @@ export const Claude19TipsVideo: React.FC = () => {
       }}
     >
       <WarmBackground />
+      <Audio src={staticFile(AUDIO_ASSETS.referenceVoice)} volume={1} />
+      <SfxLayer />
       <Sequence durationInFrames={msToFrame(TIP_TIMELINE[0].startMs)}>
-        <SafeStage>
+        <MotionStage>
           <div
             style={{
               display: "inline-flex",
-              alignSelf: "flex-start",
+              alignSelf: "center",
               padding: "12px 18px",
               border: `1px solid ${THEME.colors.line}`,
               borderRadius: 999,
@@ -50,10 +54,11 @@ export const Claude19TipsVideo: React.FC = () => {
           <h1
             style={{
               margin: "32px 0 0",
-              fontSize: 96,
+              fontSize: 104,
               lineHeight: 1.04,
               letterSpacing: 0,
-              maxWidth: 880,
+              maxWidth: 1180,
+              textAlign: "center",
               opacity,
               transform: `translateY(${titleIn}px)`,
             }}
@@ -65,7 +70,8 @@ export const Claude19TipsVideo: React.FC = () => {
           <div
             style={{
               marginTop: 30,
-              width: 560,
+              width: 680,
+              alignSelf: "center",
               height: 8,
               borderRadius: 999,
               background: THEME.colors.line,
@@ -88,15 +94,17 @@ export const Claude19TipsVideo: React.FC = () => {
               color: THEME.colors.mutedText,
               fontSize: 31,
               lineHeight: 1.42,
-              maxWidth: 780,
+              maxWidth: 960,
+              textAlign: "center",
+              alignSelf: "center",
               opacity,
               transform: `translateY(${titleIn}px)`,
             }}
           >
             非程序员高频使用技巧，按正式口播节奏编排。
-            右侧保留人物叠加空间。
+            全画面居中，只渲染 motion graphics 和参考人声。
           </p>
-        </SafeStage>
+        </MotionStage>
       </Sequence>
       {TIP_TIMELINE.map((tip) => (
         <Sequence
@@ -107,6 +115,7 @@ export const Claude19TipsVideo: React.FC = () => {
           <TipScene tip={tip} />
         </Sequence>
       ))}
+      <LightStreakTransition intensity={0.8} />
     </AbsoluteFill>
   );
 };

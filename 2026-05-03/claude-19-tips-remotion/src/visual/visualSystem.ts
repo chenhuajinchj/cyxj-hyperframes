@@ -19,6 +19,13 @@ export const THEME = {
     '"JetBrains Mono", "SF Mono", "Menlo", "Consolas", monospace',
 } as const;
 
+export const STAGE = {
+  maxWidth: 1480,
+  minHeight: 820,
+  compactMinHeight: 720,
+  horizontalPadding: 92,
+} as const;
+
 export const SAFE_AREAS = {
   host: {
     width: 560,

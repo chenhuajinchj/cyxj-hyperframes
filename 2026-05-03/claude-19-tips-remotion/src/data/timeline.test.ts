@@ -54,4 +54,48 @@ describe("Claude 19 tips subtitle timeline", () => {
     });
     expect(tips[tips.length - 1]?.endMs).toBe(617_833);
   });
+
+  test("generates sorted positive cue-level motion for all tips", () => {
+    const tips = buildTipTimeline(loadFixedCaptions());
+    const cues = tips.flatMap((tip) => tip.cues);
+
+    expect(tips.every((tip) => tip.cues.length >= 3 && tip.cues.length <= 7)).toBe(true);
+    expect(tips.every((tip) => tip.cues.every((cue) => cue.tipSlug === tip.slug))).toBe(true);
+
+    for (const tip of tips) {
+      const sorted = [...tip.cues].sort((a, b) => a.startMs - b.startMs);
+      expect(tip.cues).toEqual(sorted);
+      expect(tip.cues.every((cue) => cue.endMs > cue.startMs)).toBe(true);
+      const oldSubtitleName = ["Subtitle 1", "srt"].join(".");
+      expect(tip.cues.every((cue) => cue.text.includes(oldSubtitleName) === false)).toBe(true);
+    }
+
+    expect(cues.map((cue) => cue.kind)).toEqual(
+      expect.arrayContaining([
+        "command",
+        "terminal-output",
+        "panel-enter",
+        "metric-change",
+        "check-item",
+        "compare",
+        "branch",
+        "notification",
+        "transition",
+      ]),
+    );
+  });
+
+  test("key scenes expose required cue kinds", () => {
+    const tips = buildTipTimeline(loadFixedCaptions());
+    const bySlug = Object.fromEntries(tips.map((tip) => [tip.slug, tip]));
+    const kinds = (slug: string) => bySlug[slug]?.cues.map((cue) => cue.kind) ?? [];
+
+    expect(kinds("statusline")).toEqual(expect.arrayContaining(["command", "metric-change"]));
+    expect(kinds("commit")).toEqual(expect.arrayContaining(["command", "branch"]));
+    expect(kinds("plan-mode")).toEqual(expect.arrayContaining(["panel-enter", "check-item"]));
+    expect(kinds("self-check")).toEqual(expect.arrayContaining(["check-item"]));
+    expect(kinds("hooks")).toEqual(expect.arrayContaining(["command", "notification"]));
+    expect(kinds("api-vs-mcp")).toEqual(expect.arrayContaining(["compare", "metric-change"]));
+    expect(kinds("skill-creator")).toEqual(expect.arrayContaining(["panel-enter", "branch"]));
+  });
 });

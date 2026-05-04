@@ -1,7 +1,10 @@
 import React from "react";
 import {
   Easing,
+  Loop,
+  OffthreadVideo,
   interpolate,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
@@ -17,16 +20,40 @@ export const TerminalWindow: React.FC<{
   title?: string;
   children: React.ReactNode;
   width?: number;
-}> = ({ title = "claude-code", children, width = 1010 }) => {
+  status?: {
+    model: string;
+    context: number;
+    cost: string;
+    tokens: string;
+  };
+}> = ({ title = "claude-code", children, width = 1180, status }) => {
+  const frame = useCurrentFrame();
+  const enterY = interpolate(frame, [0, 28], [42, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.16, 1, 0.3, 1),
+  });
+  const scale = interpolate(frame, [0, 28], [0.965, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.16, 1, 0.3, 1),
+  });
+  const blur = interpolate(frame, [0, 24], [12, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
   return (
     <div
       style={{
         width,
+        maxWidth: "100%",
         borderRadius: 8,
         overflow: "hidden",
         background: THEME.colors.terminal,
         boxShadow: SHADOWS.terminal,
         border: "1px solid rgba(255,255,255,0.08)",
+        transform: `translateY(${enterY}px) scale(${scale})`,
+        filter: `blur(${blur}px)`,
       }}
     >
       <div
@@ -53,10 +80,50 @@ export const TerminalWindow: React.FC<{
           padding: "28px 30px 24px",
           fontFamily: THEME.monoFamily,
           color: THEME.colors.terminalText,
+          overflow: "hidden",
         }}
       >
         {children}
       </div>
+      {status ? <TerminalStatusLine status={status} /> : null}
+    </div>
+  );
+};
+
+const TerminalStatusLine: React.FC<{
+  status: {
+    model: string;
+    context: number;
+    cost: string;
+    tokens: string;
+  };
+}> = ({ status }) => {
+  const frame = useCurrentFrame();
+  const context = Math.round(
+    interpolate(frame, [20, 112], [Math.max(8, status.context - 26), status.context], {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+    }),
+  );
+  return (
+    <div
+      style={{
+        height: 48,
+        display: "grid",
+        gridTemplateColumns: "1.1fr 1fr 0.9fr 0.9fr",
+        alignItems: "center",
+        padding: "0 30px",
+        borderTop: "1px solid rgba(248,241,231,0.09)",
+        color: "rgba(248,241,231,0.76)",
+        fontFamily: THEME.monoFamily,
+        fontSize: 16,
+        background: "rgba(248,241,231,0.055)",
+      }}
+    >
+      <span>model {status.model}</span>
+      <span>context {context}%</span>
+      <span>cost {status.cost}</span>
+      <span>tokens {status.tokens}</span>
     </div>
   );
 };
@@ -85,8 +152,20 @@ export const CommandResult: React.FC<{ lines: string[]; start?: number }> = ({
   start = 54,
 }) => {
   const frame = useCurrentFrame();
+  const scroll = interpolate(frame, [start, start + lines.length * 16], [0, -Math.max(0, lines.length - 4) * 22], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
   return (
-    <div style={{ marginTop: 30, display: "grid", gap: 13, fontSize: 23 }}>
+    <div
+      style={{
+        marginTop: 30,
+        display: "grid",
+        gap: 13,
+        fontSize: 23,
+        transform: `translateY(${scroll}px)`,
+      }}
+    >
       {lines.map((line, index) => {
         const opacity = interpolate(frame, [start + index * 9, start + index * 9 + 14], [0, 1], {
           extrapolateLeft: "clamp",
@@ -119,25 +198,80 @@ export const StatusLineDemo: React.FC = () => {
     extrapolateRight: "clamp",
   }));
   return (
-    <div
-      style={{
-        marginTop: 98,
-        height: 58,
-        borderRadius: 6,
-        background: "rgba(248,241,231,0.08)",
-        border: "1px solid rgba(248,241,231,0.14)",
-        display: "grid",
-        gridTemplateColumns: "1.1fr 1fr 0.9fr 0.9fr",
-        alignItems: "center",
-        padding: "0 22px",
-        fontSize: 18,
-        color: "rgba(248,241,231,0.8)",
-      }}
-    >
-      <span>model opus</span>
-      <span>context {context}%</span>
-      <span>cost $1.42</span>
-      <span>tokens 38k</span>
+    <div style={{ marginTop: 54, display: "grid", gap: 16 }}>
+      <div
+        style={{
+          height: 98,
+          borderRadius: 8,
+          overflow: "hidden",
+          border: "1px solid rgba(248,241,231,0.12)",
+          position: "relative",
+          background: "rgba(248,241,231,0.07)",
+        }}
+      >
+        <Loop durationInFrames={571}>
+          <OffthreadVideo
+            src={staticFile("video/statusbar.mp4")}
+            muted
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              opacity: 0.32,
+              filter: "saturate(0.78) contrast(1.08)",
+            }}
+          />
+        </Loop>
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(90deg, rgba(34,31,28,0.9), rgba(34,31,28,0.18), rgba(34,31,28,0.92))",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            left: 28,
+            right: 28,
+            bottom: 22,
+            height: 10,
+            borderRadius: 999,
+            background: "rgba(248,241,231,0.16)",
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              width: `${context}%`,
+              height: "100%",
+              borderRadius: 999,
+              background: THEME.colors.claudeOrange,
+            }}
+          />
+        </div>
+      </div>
+      <div
+        style={{
+          height: 58,
+          borderRadius: 6,
+          background: "rgba(248,241,231,0.08)",
+          border: "1px solid rgba(248,241,231,0.14)",
+          display: "grid",
+          gridTemplateColumns: "1.1fr 1fr 0.9fr 0.9fr",
+          alignItems: "center",
+          padding: "0 22px",
+          fontSize: 18,
+          color: "rgba(248,241,231,0.8)",
+        }}
+      >
+        <span>model opus</span>
+        <span>context {context}%</span>
+        <span>cost $1.42</span>
+        <span>tokens 38k</span>
+      </div>
     </div>
   );
 };
@@ -234,43 +368,200 @@ export const ContextBreakdown: React.FC = () => {
   );
 };
 
-export const PlanModePanel: React.FC = () => (
-  <Panel title="Plan Mode">
-    <StepList
-      steps={[
-        "clarify constraints",
-        "inspect files",
-        "write plan",
-        "wait for approval",
-        "execute with checkpoints",
-      ]}
-    />
-  </Panel>
-);
+export const CommitSnapshotScene: React.FC = () => {
+  const frame = useCurrentFrame();
+  const hash = typeText("8f2c1a9", frame, 74, 2.2);
+  const stackLift = interpolate(frame, [42, 92], [38, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.16, 1, 0.3, 1),
+  });
 
-export const SelfCheckTodo: React.FC = () => (
-  <Panel title="Self-check Todo">
-    <StepList
-      steps={[
-        "parse requirements",
-        "implement change",
-        "run local checks",
-        "inspect final output",
-        "report risks",
-      ]}
-      checked
-    />
-  </Panel>
-);
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: 24 }}>
+      <TerminalWindow
+        width={760}
+        status={{ model: "sonnet", context: 42, cost: "$0.74", tokens: "21k" }}
+      >
+        <TypingPrompt command="git add . && git commit -m save-checkpoint" />
+        <CommandResult
+          lines={[
+            "modified: src/Composition.tsx",
+            "modified: src/scenes/TipScene.tsx",
+            "created: public/audio/reference-voice.m4a",
+            `[main ${hash}] save-checkpoint`,
+            "8 files changed, 412 insertions",
+          ]}
+          start={38}
+        />
+      </TerminalWindow>
+      <Panel title="snapshot stack">
+        <div style={{ height: 382, position: "relative" }}>
+          {["current render", "motion cues", "audio layer", "rollback point"].map((item, index) => {
+            const y = stackLift + index * 58;
+            const opacity = interpolate(frame, [32 + index * 10, 58 + index * 10], [0, 1], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            });
+            return (
+              <div
+                key={item}
+                style={{
+                  position: "absolute",
+                  left: index * 18,
+                  right: index * 18,
+                  top: y,
+                  height: 76,
+                  borderRadius: 8,
+                  border: `1px solid ${index === 3 ? THEME.colors.teal : THEME.colors.line}`,
+                  background: index === 0 ? "#FFF8EF" : "rgba(255,248,239,0.68)",
+                  boxShadow: SHADOWS.soft,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  padding: "0 24px",
+                  fontSize: 23,
+                  opacity,
+                }}
+              >
+                <span>{item}</span>
+                <span style={{ color: index === 3 ? THEME.colors.teal : THEME.colors.claudeOrange }}>
+                  {index === 3 ? "rollback" : "saved"}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </Panel>
+    </div>
+  );
+};
+
+export const ClearContextScene: React.FC = () => {
+  const frame = useCurrentFrame();
+  const value = Math.round(interpolate(frame, [12, 90], [86, 18], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  }));
+  const cardIn = interpolate(frame, [62, 100], [34, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.16, 1, 0.3, 1),
+  });
+
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 310px", gap: 26, alignItems: "center" }}>
+      <TerminalWindow
+        width={930}
+        status={{ model: "opus", context: value, cost: "$1.18", tokens: `${Math.round(value * 640)}` }}
+      >
+        <TypingPrompt command="/clear" />
+        <CommandResult lines={["context window drained", "session handoff preserved", "new prompt ready"]} />
+      </TerminalWindow>
+      <div style={{ transform: `translateY(${cardIn}px)` }}>
+        <ContextGauge value={value} label="after clear" />
+      </div>
+    </div>
+  );
+};
+
+export const PlanModePanel: React.FC = () => {
+  const frame = useCurrentFrame();
+  const approval = frame > 96;
+  return (
+    <Panel title="Plan Mode">
+      <StepList
+        steps={[
+          "clarify constraints",
+          "inspect files",
+          "write plan",
+          "wait for approval",
+          "execute with checkpoints",
+        ]}
+      />
+      <div
+        style={{
+          marginTop: 24,
+          height: 56,
+          borderRadius: 8,
+          background: approval ? "rgba(47,125,115,0.12)" : "rgba(217,119,87,0.1)",
+          border: `1px solid ${approval ? THEME.colors.teal : THEME.colors.claudeOrange}`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0 20px",
+          fontSize: 22,
+          fontWeight: 800,
+        }}
+      >
+        <span>{approval ? "approved: execution starts" : "plan locked before edits"}</span>
+        <span>{approval ? "RUN" : "WAIT"}</span>
+      </div>
+    </Panel>
+  );
+};
+
+export const SelfCheckTodo: React.FC = () => {
+  const frame = useCurrentFrame();
+  const stamp = interpolate(frame, [86, 112], [0.72, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.16, 1, 0.3, 1),
+  });
+  return (
+    <Panel title="Self-check Todo">
+      <StepList
+        steps={[
+          "parse requirements",
+          "implement change",
+          "run local checks",
+          "inspect final output",
+          "report risks",
+        ]}
+        checked
+      />
+      <div
+        style={{
+          marginTop: 26,
+          width: 230,
+          height: 62,
+          borderRadius: 8,
+          border: `2px solid ${THEME.colors.success}`,
+          color: THEME.colors.success,
+          display: "grid",
+          placeItems: "center",
+          fontSize: 26,
+          fontWeight: 900,
+          transform: `scale(${stamp}) rotate(-2deg)`,
+          opacity: frame > 78 ? 1 : 0,
+        }}
+      >
+        QA PASSED
+      </div>
+    </Panel>
+  );
+};
 
 export const EscStopCard: React.FC<{ double?: boolean }> = ({ double = false }) => {
   const frame = useCurrentFrame();
-  const pulse = interpolate(frame % 42, [0, 16, 42], [1, 1.08, 1], {
+  const pulse = interpolate(frame % 46, [0, 12, 24, 46], [1, 0.91, 1.08, 1], {
+    extrapolateRight: "clamp",
+  });
+  const flash = interpolate(frame % 70, [0, 10, 34], [0.28, 0.02, 0], {
+    extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
   return (
     <Panel title={double ? "Double ESC rollback" : "ESC stop"}>
-      <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 24, position: "relative" }}>
+        <div
+          style={{
+            position: "absolute",
+            inset: -18,
+            borderRadius: 8,
+            background: `rgba(217,119,87,${flash})`,
+          }}
+        />
         {(double ? ["ESC", "ESC"] : ["ESC"]).map((key, index) => (
           <div
             key={`${key}-${index}`}
@@ -294,6 +585,32 @@ export const EscStopCard: React.FC<{ double?: boolean }> = ({ double = false }) 
         <div style={{ fontSize: 28, fontWeight: 800 }}>
           {double ? "回退到上一节点" : "立即停下，修正方向"}
         </div>
+        {double ? (
+          <div
+            style={{
+              position: "absolute",
+              left: 40,
+              right: 40,
+              bottom: -62,
+              height: 12,
+              borderRadius: 999,
+              background: THEME.colors.line,
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                width: `${interpolate(frame, [18, 86], [100, 22], {
+                  extrapolateLeft: "clamp",
+                  extrapolateRight: "clamp",
+                })}%`,
+                height: "100%",
+                borderRadius: 999,
+                background: THEME.colors.teal,
+              }}
+            />
+          </div>
+        ) : null}
       </div>
     </Panel>
   );
@@ -357,24 +674,69 @@ export const ScreenshotDropzone: React.FC = () => (
   </Panel>
 );
 
-export const WorktreeParallel: React.FC = () => (
-  <Panel title="worktree parallel flow">
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 120px 1fr", alignItems: "center" }}>
-      <Branch label="Claude Code" detail="feature/claude" color={THEME.colors.claudeOrange} />
-      <div style={{ textAlign: "center", color: THEME.colors.mutedText, fontSize: 28 }}>merge</div>
-      <Branch label="Codex" detail="codex/parallel" color={THEME.colors.teal} />
-    </div>
-  </Panel>
-);
+export const WorktreeParallel: React.FC = () => {
+  const frame = useCurrentFrame();
+  const pulse = interpolate(frame % 54, [0, 20, 54], [0.35, 1, 0.35], {
+    extrapolateRight: "clamp",
+  });
+  return (
+    <Panel title="worktree parallel flow">
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 150px 1fr", alignItems: "center" }}>
+        <Branch label="Claude Code" detail="feature/claude" color={THEME.colors.claudeOrange} />
+        <div style={{ textAlign: "center", color: THEME.colors.mutedText, fontSize: 24 }}>
+          <div
+            style={{
+              height: 4,
+              borderRadius: 999,
+              background: `rgba(47,125,115,${pulse})`,
+              marginBottom: 14,
+            }}
+          />
+          merge
+          <div
+            style={{
+              height: 4,
+              borderRadius: 999,
+              background: `rgba(217,119,87,${pulse})`,
+              marginTop: 14,
+            }}
+          />
+        </div>
+        <Branch label="Codex" detail="codex/parallel" color={THEME.colors.teal} />
+      </div>
+    </Panel>
+  );
+};
 
-export const ApiVsMcpCompare: React.FC = () => (
-  <Panel title="API endpoint vs MCP server">
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 22 }}>
-      <CompareColumn title="API" rows={["small context", "one endpoint", "good for search"]} accent={THEME.colors.teal} />
-      <CompareColumn title="MCP" rows={["more tools", "more context", "install only when needed"]} accent={THEME.colors.claudeOrange} />
-    </div>
-  </Panel>
-);
+export const ApiVsMcpCompare: React.FC = () => {
+  const frame = useCurrentFrame();
+  const split = interpolate(frame, [12, 54], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.bezier(0.16, 1, 0.3, 1),
+  });
+  return (
+    <Panel title="API endpoint vs MCP server">
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 22 }}>
+        <div style={{ transform: `translateX(${-32 + split * 32}px)` }}>
+          <CompareColumn
+            title="API"
+            rows={["small context", "one endpoint", "good for search"]}
+            accent={THEME.colors.teal}
+          />
+        </div>
+        <div style={{ transform: `translateX(${32 - split * 32}px)` }}>
+          <CompareColumn
+            title="MCP"
+            rows={["more tools", "loads context", "install only when needed"]}
+            accent={THEME.colors.claudeOrange}
+            warning
+          />
+        </div>
+      </div>
+    </Panel>
+  );
+};
 
 export const RemoteControlQR: React.FC = () => {
   const cells = Array.from({ length: 49 }, (_, index) => {
@@ -422,52 +784,88 @@ export const ThinkingBudgetCard: React.FC = () => (
   </Panel>
 );
 
-export const AgentTeamsPanel: React.FC = () => (
-  <Panel title="Agent teams">
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 18 }}>
-      {["advisor", "worker", "reviewer"].map((role, index) => (
-        <div
-          key={role}
-          style={{
-            padding: 22,
-            borderRadius: 8,
-            border: `1px solid ${THEME.colors.line}`,
-            background: index === 0 ? "rgba(217,119,87,0.1)" : "rgba(255,248,239,0.65)",
-          }}
-        >
-          <div style={{ fontSize: 28, fontWeight: 800 }}>{role}</div>
-          <div style={{ marginTop: 18, height: 4, background: index === 2 ? THEME.colors.teal : THEME.colors.claudeOrange }} />
-          <div style={{ marginTop: 16, fontSize: 19, color: THEME.colors.mutedText }}>
-            shared task list
-          </div>
-        </div>
-      ))}
-    </div>
-  </Panel>
-);
+export const AgentTeamsPanel: React.FC = () => {
+  const frame = useCurrentFrame();
+  return (
+    <Panel title="Agent teams">
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 18 }}>
+        {["advisor", "worker", "reviewer"].map((role, index) => {
+          const active = frame > index * 22;
+          const width = interpolate(frame, [index * 22, index * 22 + 44], [0, 100], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          });
+          return (
+            <div
+              key={role}
+              style={{
+                padding: 22,
+                borderRadius: 8,
+                border: `1px solid ${active ? THEME.colors.claudeOrange : THEME.colors.line}`,
+                background: index === 0 ? "rgba(217,119,87,0.1)" : "rgba(255,248,239,0.65)",
+                transform: `translateY(${active ? 0 : 18}px)`,
+                opacity: active ? 1 : 0.45,
+              }}
+            >
+              <div style={{ fontSize: 28, fontWeight: 800 }}>{role}</div>
+              <div style={{ marginTop: 18, height: 4, background: THEME.colors.line }}>
+                <div
+                  style={{
+                    height: "100%",
+                    width: `${width}%`,
+                    background: index === 2 ? THEME.colors.teal : THEME.colors.claudeOrange,
+                  }}
+                />
+              </div>
+              <div style={{ marginTop: 16, fontSize: 19, color: THEME.colors.mutedText }}>
+                {index === 0 ? "assign scope" : index === 1 ? "build in lane" : "verify result"}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </Panel>
+  );
+};
 
-export const SkillCreatorCard: React.FC = () => (
-  <Panel title="Skill Creator">
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
-      {["SKILL.md", "workflow", "scripts/", "examples/"].map((item) => (
-        <div
-          key={item}
-          style={{
-            padding: 20,
-            borderRadius: 8,
-            background: "rgba(255,248,239,0.72)",
-            border: `1px solid ${THEME.colors.line}`,
-            fontFamily: THEME.monoFamily,
-            fontSize: 26,
-            color: item === "SKILL.md" ? THEME.colors.claudeOrange : THEME.colors.text,
-          }}
-        >
-          {item}
-        </div>
-      ))}
-    </div>
-  </Panel>
-);
+export const SkillCreatorCard: React.FC = () => {
+  const frame = useCurrentFrame();
+  return (
+    <Panel title="Skill Creator">
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+        {["SKILL.md", "workflow", "scripts/", "examples/"].map((item, index) => {
+          const inY = interpolate(frame, [index * 16, index * 16 + 34], [34, 0], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+            easing: Easing.bezier(0.16, 1, 0.3, 1),
+          });
+          const opacity = interpolate(frame, [index * 16, index * 16 + 26], [0, 1], {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          });
+          return (
+            <div
+              key={item}
+              style={{
+                padding: 20,
+                borderRadius: 8,
+                background: "rgba(255,248,239,0.72)",
+                border: `1px solid ${item === "SKILL.md" ? THEME.colors.claudeOrange : THEME.colors.line}`,
+                fontFamily: THEME.monoFamily,
+                fontSize: 26,
+                color: item === "SKILL.md" ? THEME.colors.claudeOrange : THEME.colors.text,
+                transform: `translateY(${inY}px)`,
+                opacity,
+              }}
+            >
+              {item}
+            </div>
+          );
+        })}
+      </div>
+    </Panel>
+  );
+};
 
 export const Panel: React.FC<{ title: string; children: React.ReactNode }> = ({
   title,
@@ -564,10 +962,11 @@ const Branch: React.FC<{ label: string; detail: string; color: string }> = ({
   </div>
 );
 
-const CompareColumn: React.FC<{ title: string; rows: string[]; accent: string }> = ({
+const CompareColumn: React.FC<{ title: string; rows: string[]; accent: string; warning?: boolean }> = ({
   title,
   rows,
   accent,
+  warning = false,
 }) => (
   <div
     style={{
@@ -581,7 +980,7 @@ const CompareColumn: React.FC<{ title: string; rows: string[]; accent: string }>
     <div style={{ marginTop: 22, display: "grid", gap: 14 }}>
       {rows.map((row) => (
         <div key={row} style={{ fontSize: 23, color: THEME.colors.text }}>
-          ✓ {row}
+          {warning && row.includes("context") ? "!" : "✓"} {row}
         </div>
       ))}
     </div>

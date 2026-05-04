@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  AbsoluteFill,
   Easing,
   interpolate,
   useCurrentFrame,
@@ -10,7 +9,9 @@ import type { TipNode } from "../data/timeline";
 import {
   AgentTeamsPanel,
   ApiVsMcpCompare,
+  ClearContextScene,
   CommandResult,
+  CommitSnapshotScene,
   ContextBreakdown,
   ContextGauge,
   EscStopCard,
@@ -27,6 +28,7 @@ import {
   TypingPrompt,
   WorktreeParallel,
 } from "../components/TerminalComponents";
+import { MotionStage } from "../visual/MotionStage";
 import { SHADOWS, THEME } from "../visual/visualSystem";
 import { getSceneSpec } from "./sceneRegistry";
 
@@ -45,13 +47,14 @@ export const TipScene: React.FC<{ tip: TipNode }> = ({ tip }) => {
   });
 
   return (
-    <AbsoluteFill style={{ padding: "84px 0 0 104px" }}>
+    <MotionStage>
       <div style={{ opacity, transform: `translateY(${enter}px)` }}>
         <SceneHeader tip={tip} />
-        <div style={{ marginTop: 30 }}>{renderMainVisual(tip, spec)}</div>
+        <div style={{ marginTop: 26 }}>{renderMainVisual(tip, spec)}</div>
+        <CueRail tip={tip} />
         <MiniCards items={tip.keywords} />
       </div>
-    </AbsoluteFill>
+    </MotionStage>
   );
 };
 
@@ -59,6 +62,7 @@ const SceneHeader: React.FC<{ tip: TipNode }> = ({ tip }) => (
   <div
     style={{
       width: 1010,
+      maxWidth: "100%",
       display: "flex",
       justifyContent: "space-between",
       alignItems: "flex-end",
@@ -106,7 +110,9 @@ const renderMainVisual = (
 ): React.ReactNode => {
   if (tip.slug === "statusline") {
     return (
-      <TerminalWindow>
+      <TerminalWindow
+        status={{ model: "opus", context: 54, cost: "$1.42", tokens: "38k" }}
+      >
         <TypingPrompt command={spec.prompt} />
         <CommandResult lines={spec.resultLines} />
         <StatusLineDemo />
@@ -114,14 +120,25 @@ const renderMainVisual = (
     );
   }
 
-  if (tip.slug === "clear" || tip.slug === "claude-md" || spec.gauge) {
+  if (tip.slug === "commit") {
+    return <CommitSnapshotScene />;
+  }
+
+  if (tip.slug === "clear") {
+    return <ClearContextScene />;
+  }
+
+  if (tip.slug === "claude-md" || spec.gauge) {
     return (
       <div style={{ display: "flex", gap: 26, alignItems: "center" }}>
-        <TerminalWindow width={740}>
+        <TerminalWindow
+          width={880}
+          status={{ model: "sonnet", context: spec.gauge ?? 54, cost: "$0.92", tokens: "29k" }}
+        >
           <TypingPrompt command={spec.prompt} />
           <CommandResult lines={spec.resultLines} />
         </TerminalWindow>
-        <ContextGauge value={spec.gauge ?? 54} label={tip.slug === "clear" ? "after clear" : "context"} />
+        <ContextGauge value={spec.gauge ?? 54} label="context" />
       </div>
     );
   }
@@ -169,4 +186,35 @@ const renderMainVisual = (
         </TerminalWindow>
       );
   }
+};
+
+const CueRail: React.FC<{ tip: TipNode }> = ({ tip }) => {
+  const frame = useCurrentFrame();
+  return (
+    <div style={{ display: "flex", gap: 10, marginTop: 20, flexWrap: "wrap" }}>
+      {tip.cues.slice(0, 6).map((cue, index) => {
+        const opacity = interpolate(frame, [index * 10, index * 10 + 24], [0, 1], {
+          extrapolateLeft: "clamp",
+          extrapolateRight: "clamp",
+        });
+        return (
+          <div
+            key={cue.id}
+            style={{
+              opacity,
+              padding: "8px 11px",
+              borderRadius: 7,
+              background: cue.emphasis === "high" ? "rgba(217,119,87,0.12)" : "rgba(255,248,239,0.58)",
+              border: `1px solid ${cue.emphasis === "high" ? THEME.colors.claudeOrange : THEME.colors.line}`,
+              color: cue.emphasis === "high" ? THEME.colors.text : THEME.colors.mutedText,
+              fontSize: 15,
+              fontFamily: THEME.monoFamily,
+            }}
+          >
+            {cue.kind}
+          </div>
+        );
+      })}
+    </div>
+  );
 };

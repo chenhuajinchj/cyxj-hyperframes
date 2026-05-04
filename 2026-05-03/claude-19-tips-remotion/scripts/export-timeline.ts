@@ -32,7 +32,7 @@ export const VIDEO_META = ${JSON.stringify(
   2,
 )} as const;
 
-export const TIP_TIMELINE = ${JSON.stringify(tips, null, 2)} satisfies TipNode[];
+export const TIP_TIMELINE: TipNode[] = ${JSON.stringify(tips, null, 2)};
 `;
 
 fs.writeFileSync(outputPath, generated);

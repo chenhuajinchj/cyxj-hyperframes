@@ -6,6 +6,7 @@ describe("scene registry", () => {
   test("maps every SRT-derived tip to a motion scene", () => {
     for (const tip of TIP_TIMELINE) {
       expect(getSceneSpec(tip).componentName).toBeTruthy();
+      expect(getSceneSpec(tip).placeholder).toBe(false);
     }
   });
 
