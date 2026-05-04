@@ -376,6 +376,274 @@ html, body {
   color: var(--c-text);
 }
 
+/* ========= MOTION PHILOSOPHY 适配（米色暖系版） ========= */
+
+/* 透视网格底层（米色背景上几乎不可见但有"骨架"） */
+.perspective-grid {
+  position: absolute;
+  inset: -10% -5%;
+  transform: perspective(900px) rotateX(60deg) translateY(20%);
+  transform-origin: center 100%;
+  background:
+    repeating-linear-gradient(0deg,  rgba(43,38,34,0.06) 0 1px, transparent 1px 80px),
+    repeating-linear-gradient(90deg, rgba(43,38,34,0.06) 0 1px, transparent 1px 80px);
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* 4 个十字准星 + （registration marks） */
+.crosshair-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.crosshair {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  color: rgba(217, 119, 87, 0.42);
+  font-family: var(--f-mono);
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 28px;
+  text-align: center;
+  user-select: none;
+}
+
+/* 加重暖色 vignette（Philosophy 米色版） */
+.vignette-strong {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 70% 70% at 50% 50%,
+    transparent 25%,
+    rgba(43, 38, 34, 0.20) 65%,
+    rgba(43, 38, 34, 0.45) 100%);
+}
+
+/* 米色 8-stop chrome gradient 文字（dark bookends 让 sweep 不漏边） */
+.chrome-text {
+  background: linear-gradient(90deg,
+    #14110a 0%, #14110a 15%,
+    #2B2622 25%, #6D6259 40%, #A89380 55%, #D8CEC2 70%,
+    #14110a 85%, #14110a 100%);
+  background-size: 300% 100%;
+  background-position: 100% 0;     /* 默认右端 dark */
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+          color: transparent;
+  /* 加 halo glow */
+  filter: drop-shadow(0 0 24px rgba(217, 119, 87, 0.45));
+}
+
+/* hot 词专用 chrome（橙色版） */
+.chrome-text-hot {
+  background: linear-gradient(90deg,
+    #14110a 0%, #14110a 12%,
+    #6D6259 22%, #C78A3B 38%, #D97757 55%, #E8A07A 70%,
+    #14110a 88%, #14110a 100%);
+  background-size: 300% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+          color: transparent;
+  filter: drop-shadow(0 0 32px rgba(217, 119, 87, 0.65));
+}
+
+/* word reveal —— 单 word 单元素 */
+.word {
+  display: inline-block;
+  font-family: var(--f-zh);
+  font-weight: 800;
+  letter-spacing: 0;
+  white-space: nowrap;
+  line-height: 1.2;
+  padding: 0 0.05em;
+}
+
+/* Claude Code 终端真实 UI —— 圆角面板 + > prompt */
+.cc-terminal {
+  background: linear-gradient(180deg, #FAF6EE 0%, #F0E8D8 100%);
+  border: 1px solid var(--c-line);
+  border-radius: 18px;
+  box-shadow: var(--shadow-panel);
+  font-family: var(--f-mono);
+  color: var(--c-text);
+  padding: 32px 40px;
+  position: relative;
+}
+.cc-terminal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  border: 1.5px solid rgba(217, 119, 87, 0.2);
+  pointer-events: none;
+}
+.cc-prompt-line {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  font-size: 38px;
+  white-space: nowrap;
+}
+.cc-prompt-arrow {
+  color: var(--c-orange);
+  font-weight: 700;
+  font-family: var(--f-mono);
+}
+.cc-cmd {
+  color: var(--c-text);
+  font-weight: 600;
+}
+.cc-cursor {
+  display: inline-block;
+  width: 12px;
+  height: 32px;
+  background: var(--c-orange);
+  margin-left: 4px;
+  vertical-align: text-bottom;
+}
+.cc-info {
+  margin-top: 22px;
+  font-size: 22px;
+  color: var(--c-muted);
+  font-family: var(--f-mono);
+  font-style: italic;
+}
+
+/* Claude Code 底部 statusline 信息条（一条，不是分散 chip） */
+.cc-statusline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  padding: 14px 28px;
+  border-radius: 12px;
+  background: rgba(34, 31, 28, 0.92);
+  color: #F8F1E7;
+  font-family: var(--f-mono);
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: 0;
+  box-shadow: 0 8px 24px rgba(43, 38, 34, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  white-space: nowrap;
+}
+.cc-sl-seg {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+}
+.cc-sl-seg + .cc-sl-seg {
+  border-left: 1px solid rgba(248, 241, 231, 0.18);
+}
+.cc-sl-icon {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+}
+.cc-sl-icon.model { background: var(--c-orange); }
+.cc-sl-icon.ctx   { background: var(--c-teal); }
+.cc-sl-icon.cost  { background: var(--c-warning); }
+.cc-sl-icon.tok   { background: rgba(248, 241, 231, 0.5); }
+.cc-sl-label {
+  color: rgba(248, 241, 231, 0.55);
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.cc-sl-value {
+  color: #F8F1E7;
+  font-weight: 700;
+}
+.cc-sl-value.warn   { color: var(--c-warning); }
+.cc-sl-value.danger { color: var(--c-danger); }
+
+/* whip-streak —— 白色光束转场 */
+.whip-streak {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 60%;
+  height: 14px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.0) 20%,
+    rgba(255, 250, 240, 0.85) 50%,
+    rgba(255, 255, 255, 0.0) 80%,
+    transparent 100%);
+  filter: blur(10px);
+  transform: translateY(-50%) translateX(-100%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* 终端素描（stroke 描边动画 outline 用） */
+.terminal-outline {
+  border: 1.5px dashed var(--c-line);
+  border-radius: 12px;
+  background: transparent;
+}
+.terminal-outline.solid {
+  border-style: solid;
+  background: var(--c-terminal);
+}
+
+/* word-typed prompt（整词飞入，不是字符 stagger） */
+.word-typed {
+  display: inline-block;
+  font-family: var(--f-mono);
+  color: var(--c-terminal-text);
+  font-weight: 600;
+}
+
+/* 上下文条 dolly 容器（perspective 推进） */
+.ctx-deep {
+  perspective: 900px;
+  perspective-origin: center bottom;
+}
+.ctx-deep .ctx-bar {
+  transform-origin: center top;
+  width: 100%;
+  height: 28px;
+  background: var(--c-surface-2);
+  border-radius: var(--r-chip);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--c-line), inset 0 2px 4px rgba(43, 38, 34, 0.08);
+}
+.ctx-deep .ctx-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--c-orange), #E8A07A);
+  border-radius: var(--r-chip);
+  box-shadow: 0 0 24px rgba(217, 119, 87, 0.5);
+}
+
+/* particles drift（hero hold 阶段微动） */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(217, 119, 87, 0.55);
+  pointer-events: none;
+  filter: blur(0.5px);
+}
+
+/* hot 词污染 glitch 边框 */
+.glitch-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 80px rgba(184, 81, 56, 0.0);
+  transition: none;
+}
+.glitch-frame.active {
+  box-shadow: inset 0 0 120px rgba(184, 81, 56, 0.35);
+}
+
 
 /* ========= Sample composition styles (moved from per-file <style>) ========= */
 
