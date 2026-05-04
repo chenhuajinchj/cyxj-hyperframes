@@ -1433,3 +1433,476 @@ html, body {
       z-index: 60;
     }
 
+
+/* === Tip 04 plan-mode === */
+
+    /* Tip 04 计划模式 — 24s — 6 cues + hero hold */
+
+    /* hero opener zh 大字（cue A） */
+    [data-composition-id="tip-04-plan-mode"] .hero-zh {
+      font-family: var(--f-zh);
+      font-weight: 800;
+      font-size: 144px;
+      line-height: 1.1;
+      letter-spacing: 0;
+      white-space: nowrap;
+      margin: 0;
+      padding: 8px 0;
+    }
+
+    /* keycap 组合容器（Shift + Tab） */
+    [data-composition-id="tip-04-plan-mode"] .keycap-combo {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      opacity: 0;
+    }
+    [data-composition-id="tip-04-plan-mode"] .keycap-combo .keycap {
+      transform-origin: center bottom;
+    }
+    [data-composition-id="tip-04-plan-mode"] .keycap-combo .keycap-plus {
+      font-family: var(--f-mono);
+      font-size: 96px;
+      font-weight: 700;
+      color: var(--c-muted);
+      padding: 0 8px;
+    }
+    [data-composition-id="tip-04-plan-mode"] .keycap-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 28px;
+      border: 4px solid var(--c-orange);
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 0 60px rgba(217, 119, 87, 0.5);
+    }
+
+    /* 终端容器（plan mode 终端 + 计划面板组合） */
+    [data-composition-id="tip-04-plan-mode"] .pm-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      padding: 0 80px;
+      opacity: 0;
+    }
+    [data-composition-id="tip-04-plan-mode"] .pm-stage .cc-window {
+      width: 760px;
+      flex-shrink: 0;
+    }
+    [data-composition-id="tip-04-plan-mode"] .pm-stage .cc-prompt-line {
+      font-size: 32px;
+    }
+    [data-composition-id="tip-04-plan-mode"] .pm-stage .cc-statusline {
+      font-size: 20px;
+    }
+    [data-composition-id="tip-04-plan-mode"] .cc-info {
+      margin-top: 18px;
+      font-size: 22px;
+    }
+
+    /* statusline 新增 mode 段 */
+    [data-composition-id="tip-04-plan-mode"] .cc-sl-icon.mode { background: var(--c-orange); }
+
+    /* 计划草稿面板（cue D 右侧滑入） */
+    [data-composition-id="tip-04-plan-mode"] .plan-panel {
+      width: 720px;
+      background: var(--c-surface);
+      border: 1px solid var(--c-line);
+      border-radius: var(--r-card);
+      box-shadow: var(--shadow-panel);
+      padding: 28px 32px 32px;
+      opacity: 0;
+      transform: translateX(40px);
+      flex-shrink: 0;
+    }
+    [data-composition-id="tip-04-plan-mode"] .plan-panel-titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 18px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--c-line);
+    }
+    [data-composition-id="tip-04-plan-mode"] .plan-panel-title {
+      font-family: var(--f-mono);
+      font-size: 22px;
+      color: var(--c-muted);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    [data-composition-id="tip-04-plan-mode"] .plan-panel-mode {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(217, 119, 87, 0.12);
+      border: 1px solid rgba(217, 119, 87, 0.35);
+      color: var(--c-orange);
+      font-family: var(--f-mono);
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    [data-composition-id="tip-04-plan-mode"] .plan-panel-mode-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--c-orange);
+      box-shadow: 0 0 10px var(--c-orange-glow);
+    }
+    [data-composition-id="tip-04-plan-mode"] .plan-steps {
+      display: grid;
+      gap: 14px;
+    }
+    [data-composition-id="tip-04-plan-mode"] .plan-step {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: rgba(255, 251, 245, 0.6);
+      border: 1px solid var(--c-line);
+      font-family: var(--f-mono);
+      font-size: 22px;
+      color: var(--c-text);
+      font-weight: 500;
+      opacity: 0;
+    }
+    [data-composition-id="tip-04-plan-mode"] .plan-step-checkbox {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      border: 2px solid var(--c-muted);
+      background: transparent;
+      color: transparent;
+      font-weight: 800;
+      font-size: 18px;
+      flex-shrink: 0;
+      transition: none;
+    }
+    [data-composition-id="tip-04-plan-mode"] .plan-step.done .plan-step-checkbox {
+      background: var(--c-orange);
+      border-color: var(--c-orange);
+      color: #fff;
+      box-shadow: 0 0 16px var(--c-orange-glow);
+    }
+    [data-composition-id="tip-04-plan-mode"] .plan-step.done .plan-step-text {
+      color: var(--c-muted);
+      text-decoration: line-through;
+      text-decoration-color: rgba(109, 98, 89, 0.45);
+    }
+    [data-composition-id="tip-04-plan-mode"] .plan-step-num {
+      font-family: var(--f-mono);
+      color: var(--c-muted);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+    [data-composition-id="tip-04-plan-mode"] .plan-step-text {
+      flex: 1;
+      letter-spacing: 0;
+    }
+
+    /* ⏸ Awaiting approval chip（cue D 末出现在面板下方） */
+    [data-composition-id="tip-04-plan-mode"] .approval-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 24px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      background: rgba(199, 138, 59, 0.12);
+      border: 1px solid rgba(199, 138, 59, 0.45);
+      color: var(--c-warning);
+      font-family: var(--f-mono);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      opacity: 0;
+    }
+    [data-composition-id="tip-04-plan-mode"] .approval-chip-icon {
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    /* 「明确指令」高亮标签（cue E） */
+    [data-composition-id="tip-04-plan-mode"] .clarity-badge {
+      position: absolute;
+      left: 50%;
+      top: 80px;
+      transform: translateX(-50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 28px;
+      border-radius: 999px;
+      background: rgba(255, 251, 245, 0.92);
+      border: 1px solid var(--c-orange);
+      box-shadow: 0 0 36px rgba(217, 119, 87, 0.45), var(--shadow-soft);
+      color: var(--c-text);
+      font-family: var(--f-zh);
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: 0.04em;
+      opacity: 0;
+      white-space: nowrap;
+    }
+    [data-composition-id="tip-04-plan-mode"] .clarity-badge-en {
+      font-family: var(--f-en);
+      font-size: 18px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-orange);
+      font-weight: 700;
+    }
+
+    /* 金光 sweep（cue E 扫过计划面板） */
+    [data-composition-id="tip-04-plan-mode"] .gold-sweep {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 200px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 250, 240, 0.0) 20%,
+        rgba(255, 220, 170, 0.55) 50%,
+        rgba(255, 250, 240, 0.0) 80%,
+        transparent 100%);
+      filter: blur(4px);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+
+    /* keycap footer（cue B 末缩到左上角） */
+    [data-composition-id="tip-04-plan-mode"] .keycap-footer {
+      position: absolute;
+      top: 80px;
+      left: 80px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+    }
+    [data-composition-id="tip-04-plan-mode"] .keycap-footer .keycap {
+      min-width: 56px;
+      height: 56px;
+      padding: 0 14px;
+      font-size: 20px;
+    }
+    [data-composition-id="tip-04-plan-mode"] .keycap-footer .keycap-plus {
+      font-family: var(--f-mono);
+      font-size: 28px;
+      color: var(--c-muted);
+    }
+
+    /* ========= V2 重做：双卡片并排 + 真实 mode 切换条 ========= */
+
+    /* 双卡片舞台（左右排，中央对齐） */
+    [data-composition-id="tip-04-plan-mode"] .pm-stage-v2 {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      opacity: 0;
+    }
+    [data-composition-id="tip-04-plan-mode"] .pm-cards-row {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      gap: 60px;
+    }
+
+    /* 左侧：输入方式卡片（米色，含 keycap） */
+    [data-composition-id="tip-04-plan-mode"] .input-method-card {
+      width: 480px;
+      min-height: 360px;
+      background: var(--c-surface);
+      border: 1px solid var(--c-line);
+      border-radius: 14px;
+      box-shadow: var(--shadow-panel);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    [data-composition-id="tip-04-plan-mode"] .input-method-titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      background: var(--c-surface-2);
+      border-bottom: 1px solid var(--c-line);
+    }
+    [data-composition-id="tip-04-plan-mode"] .input-method-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--f-mono);
+      font-size: 16px;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--c-muted);
+      font-weight: 700;
+    }
+    [data-composition-id="tip-04-plan-mode"] .input-method-tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--c-orange);
+    }
+    [data-composition-id="tip-04-plan-mode"] .input-method-meta {
+      font-family: var(--f-en);
+      font-size: 14px;
+      color: var(--c-muted);
+      letter-spacing: 0.04em;
+      opacity: 0.7;
+    }
+    [data-composition-id="tip-04-plan-mode"] .input-method-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding: 28px 24px;
+    }
+    [data-composition-id="tip-04-plan-mode"] .input-method-body .keycap {
+      min-width: 120px;
+      height: 120px;
+      padding: 0 22px;
+      font-size: 36px;
+      transform-origin: center bottom;
+    }
+    [data-composition-id="tip-04-plan-mode"] .input-method-body .keycap-plus {
+      font-family: var(--f-mono);
+      font-size: 44px;
+      font-weight: 700;
+      color: var(--c-muted);
+    }
+    [data-composition-id="tip-04-plan-mode"] .input-method-card.glow {
+      box-shadow:
+        var(--shadow-panel),
+        0 0 0 2px var(--c-orange),
+        0 0 48px rgba(217, 119, 87, 0.4);
+    }
+    [data-composition-id="tip-04-plan-mode"] .keycap.pm-pressed {
+      transform: translateY(6px);
+      border-bottom-width: 1px;
+      box-shadow:
+        0 1px 0 rgba(43, 38, 34, 0.12),
+        var(--shadow-card),
+        0 0 0 3px var(--c-orange),
+        0 0 32px rgba(217, 119, 87, 0.55);
+    }
+
+    /* 右侧：终端卡片头部加触发方式 tag */
+    [data-composition-id="tip-04-plan-mode"] .pm-stage-v2 .cc-window {
+      width: 720px;
+      min-height: 360px;
+      display: grid;
+      grid-template-rows: auto 56px 1fr auto;
+    }
+    [data-composition-id="tip-04-plan-mode"] .cc-method-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 22px;
+      background: var(--c-terminal-soft);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-family: var(--f-mono);
+      font-size: 14px;
+      color: rgba(248, 241, 231, 0.55);
+      letter-spacing: 0.04em;
+    }
+    [data-composition-id="tip-04-plan-mode"] .cc-method-tag-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      font-weight: 700;
+    }
+    [data-composition-id="tip-04-plan-mode"] .cc-method-tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--c-orange);
+    }
+
+    /* mode 切换状态条（参照真实 Claude Code `‖ plan mode on ·`） */
+    [data-composition-id="tip-04-plan-mode"] .mode-toggle-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 28px;
+      background: rgba(255, 251, 245, 0.92);
+      border: 1px solid var(--c-line);
+      border-radius: 999px;
+      box-shadow: var(--shadow-soft);
+      font-family: var(--f-mono);
+      font-size: 26px;
+      color: var(--c-teal);
+      letter-spacing: 0;
+      font-weight: 700;
+      white-space: nowrap;
+      opacity: 0;
+    }
+    [data-composition-id="tip-04-plan-mode"] .mode-toggle-pause {
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      color: var(--c-teal);
+    }
+    [data-composition-id="tip-04-plan-mode"] .mode-toggle-text {
+      color: var(--c-teal);
+      letter-spacing: 0;
+    }
+    [data-composition-id="tip-04-plan-mode"] .mode-toggle-dot {
+      color: var(--c-teal);
+      font-size: 30px;
+      line-height: 1;
+      opacity: 0.75;
+    }
+    [data-composition-id="tip-04-plan-mode"] .mode-toggle-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 24px;
+      background: var(--c-teal);
+      vertical-align: middle;
+      box-shadow: 0 0 8px rgba(47, 125, 115, 0.6);
+    }
+
+    /* V2 plan-panel 重新定位（中央下方滑入） */
+    [data-composition-id="tip-04-plan-mode"] .pm-stage-v2 .plan-panel {
+      width: 1100px;
+      transform: translateY(40px);
+    }
+    [data-composition-id="tip-04-plan-mode"] .pm-stage-v2 .plan-steps {
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 18px;
+    }
+    [data-composition-id="tip-04-plan-mode"] .pm-stage-v2 .plan-step {
+      font-size: 22px;
+    }
+    [data-composition-id="tip-04-plan-mode"] .pm-stage-v2 .approval-chip {
+      margin-top: 18px;
+    }
+
+
+
