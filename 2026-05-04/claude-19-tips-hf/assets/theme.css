@@ -1,0 +1,544 @@
+:root {
+  /* 米色暖系底色 */
+  --c-bg: #F7F2EA;
+  --c-surface: #EFE7DC;
+  --c-surface-2: #E5DACA;
+  --c-text: #2B2622;
+  --c-muted: #6D6259;
+  --c-line: #D8CEC2;
+
+  /* 强调 */
+  --c-orange: #D97757;          /* Claude 橙 hot */
+  --c-orange-glow: rgba(217, 119, 87, 0.45);
+  --c-teal: #2F7D73;
+  --c-success: #4E8F72;
+  --c-warning: #C78A3B;
+  --c-danger: #B85138;
+
+  /* 终端（暗色岛屿） */
+  --c-terminal: #221F1C;
+  --c-terminal-soft: #322D28;
+  --c-terminal-text: #F8F1E7;
+  --c-terminal-mute: rgba(248, 241, 231, 0.45);
+
+  /* 字体 */
+  --f-zh: "Noto Sans SC", "PingFang SC", "Inter", "Helvetica Neue", sans-serif;
+  --f-en: "Inter", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", "SF Mono", "Menlo", "Consolas", monospace;
+
+  /* 字号 */
+  --fs-hero: 104px;
+  --fs-headline: 72px;
+  --fs-card-title: 48px;
+  --fs-body: 32px;
+  --fs-body-sm: 26px;
+  --fs-mono: 26px;
+  --fs-kicker: 22px;
+  --fs-meta: 18px;
+
+  /* 阴影 */
+  --shadow-soft: 0 12px 36px rgba(43, 38, 34, 0.10);
+  --shadow-panel: 0 28px 70px rgba(43, 38, 34, 0.13);
+  --shadow-orange: 0 0 60px rgba(217, 119, 87, 0.45);
+  --shadow-card: 0 8px 24px rgba(43, 38, 34, 0.12);
+
+  /* 圆角 */
+  --r-chip: 999px;
+  --r-card: 16px;
+  --r-card-sm: 8px;
+}
+
+/* 全局 reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--f-zh);
+  font-feature-settings: "tnum" 1, "ss01" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Kicker chip — 顶部"第 XX 招"圆角胶囊 */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: var(--r-chip);
+  background: rgba(255, 251, 245, 0.62);
+  border: 1px solid var(--c-line);
+  color: var(--c-muted);
+  font-family: var(--f-en);
+  font-size: var(--fs-kicker);
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  box-shadow: var(--shadow-soft);
+}
+
+.kicker .kicker-num {
+  color: var(--c-orange);
+  font-family: var(--f-mono);
+  font-weight: 700;
+}
+
+/* Hero 大字标题 */
+.hero-title {
+  font-family: var(--f-zh);
+  font-size: var(--fs-hero);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--c-text);
+  padding: 4px 0;
+}
+
+/* hero-title-zh（含字符 stagger）用 flex 避免 inline whitespace */
+.hero-title-zh {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+.hero-title-zh .hero-char {
+  display: inline-block;
+}
+
+.hero-title-en {
+  font-family: var(--f-en);
+  font-size: var(--fs-headline);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--c-muted);
+}
+
+/* Hot 词 — Claude 橙 + halo */
+.hot {
+  color: var(--c-orange);
+  text-shadow: 0 0 24px var(--c-orange-glow);
+}
+
+/* mac 终端壳子 */
+.mac-terminal {
+  background: var(--c-terminal);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-panel);
+  font-family: var(--f-mono);
+  color: var(--c-terminal-text);
+}
+
+.mac-terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--c-terminal-soft);
+}
+
+.mac-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 999px;
+}
+
+.mac-dot.r { background: #FF5F56; }
+.mac-dot.y { background: #FFBD2E; }
+.mac-dot.g { background: #27C93F; }
+
+.mac-terminal-body {
+  padding: 28px 32px;
+  font-size: var(--fs-mono);
+  line-height: 1.7;
+}
+
+.mac-prompt-symbol {
+  color: var(--c-teal);
+  margin-right: 10px;
+}
+
+.mac-cursor {
+  display: inline-block;
+  width: 12px;
+  height: 28px;
+  background: var(--c-terminal-text);
+  vertical-align: text-bottom;
+  margin-left: 4px;
+}
+
+/* 全局纹理三件套（顶层挂） */
+.global-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 90;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: radial-gradient(circle at 12px 18px, rgba(43, 38, 34, 0.55) 0.8px, transparent 1.1px);
+  background-size: 34px 34px;
+}
+
+.global-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 91;
+  background: radial-gradient(ellipse 75% 75% at 50% 50%, transparent 30%, rgba(43, 38, 34, 0.18) 100%);
+}
+
+/* 居中容器 */
+.stage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 92px;
+}
+
+.stage-stack {
+  display: grid;
+  gap: 28px;
+  justify-items: center;
+  text-align: center;
+  max-width: 1480px;
+}
+
+/* 仪表卡（statusline 用） */
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border-radius: var(--r-chip);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  color: var(--c-text);
+  font-family: var(--f-mono);
+  font-size: var(--fs-body-sm);
+  font-weight: 500;
+  box-shadow: var(--shadow-card);
+}
+
+.status-chip.active {
+  border-color: var(--c-orange);
+  box-shadow: var(--shadow-orange), var(--shadow-card);
+}
+
+.status-chip-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--c-orange);
+}
+
+/* 进度条（context 占比） */
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: var(--c-surface-2);
+  border-radius: var(--r-chip);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--c-orange);
+  border-radius: var(--r-chip);
+  transition: none;
+}
+
+.progress-fill.warn { background: var(--c-warning); }
+.progress-fill.danger { background: var(--c-danger); }
+
+/* KeyCap 按键 */
+.keycap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  height: 64px;
+  padding: 0 18px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #FAF6EE, #E5DACA);
+  border: 1px solid var(--c-line);
+  border-bottom: 3px solid var(--c-line);
+  font-family: var(--f-mono);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--c-text);
+  box-shadow: 0 4px 0 rgba(43, 38, 34, 0.12), var(--shadow-card);
+}
+
+.keycap.lg {
+  min-width: 240px;
+  height: 240px;
+  font-size: 80px;
+  border-radius: 28px;
+  border-width: 2px;
+  border-bottom-width: 8px;
+  box-shadow: 0 12px 0 rgba(43, 38, 34, 0.12), var(--shadow-panel);
+}
+
+.keycap.pressed {
+  transform: translateY(4px);
+  border-bottom-width: 1px;
+  box-shadow: 0 1px 0 rgba(43, 38, 34, 0.12), var(--shadow-card);
+}
+
+/* 金句 hero hold */
+.hero-statement {
+  font-family: var(--f-zh);
+  font-size: 88px;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.1;
+  color: var(--c-text);
+  text-align: center;
+}
+
+.hero-statement-en {
+  margin-top: 16px;
+  font-family: var(--f-en);
+  font-size: var(--fs-body-sm);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--c-muted);
+}
+
+/* 思考流（token 行） */
+.token-stream {
+  display: grid;
+  gap: 14px;
+  font-family: var(--f-mono);
+  font-size: var(--fs-mono);
+  text-align: center;
+}
+
+.token-line {
+  color: var(--c-muted);
+  letter-spacing: 0;
+}
+
+.token-line.warn { color: var(--c-warning); }
+.token-line.danger { color: var(--c-danger); }
+
+/* 对比双卡 */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  width: 100%;
+  max-width: 1280px;
+}
+
+.compare-card {
+  padding: 36px 32px;
+  border-radius: var(--r-card);
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.compare-card.bad {
+  border-color: rgba(184, 81, 56, 0.45);
+  background: rgba(184, 81, 56, 0.06);
+}
+
+.compare-card.good {
+  border-color: rgba(78, 143, 114, 0.45);
+  background: rgba(78, 143, 114, 0.06);
+}
+
+.compare-label {
+  font-family: var(--f-en);
+  font-size: var(--fs-meta);
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.compare-card.bad .compare-label { color: var(--c-danger); }
+.compare-card.good .compare-label { color: var(--c-success); }
+
+.compare-value {
+  font-family: var(--f-mono);
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--c-text);
+}
+
+
+/* ========= Sample composition styles (moved from per-file <style>) ========= */
+
+/* === Tip 01 statusline === */
+
+    /* 样片 1: statusline 自定义状态栏 — 32.267s — 6 cues */
+    [data-composition-id="tip-01-statusline"] .cue {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 80px;
+    }
+    [data-composition-id="tip-01-statusline"] .cue-1 .stage-stack { gap: 32px; }
+    [data-composition-id="tip-01-statusline"] .hero-title-zh { font-size: 120px; }
+    [data-composition-id="tip-01-statusline"] .hero-char {
+      display: inline-block;
+      transform: translateY(40px);
+      opacity: 0;
+    }
+
+    [data-composition-id="tip-01-statusline"] .terminal-wrap {
+      width: 1280px;
+      max-width: 90%;
+      transform-origin: center;
+    }
+    [data-composition-id="tip-01-statusline"] .term-prompt {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      font-size: 36px;
+      white-space: nowrap;
+    }
+    [data-composition-id="tip-01-statusline"] .term-host { color: var(--c-orange); font-weight: 700; }
+    [data-composition-id="tip-01-statusline"] .term-path { color: rgba(248,241,231,0.55); }
+    [data-composition-id="tip-01-statusline"] .term-symbol { color: var(--c-teal); }
+    [data-composition-id="tip-01-statusline"] .term-typed { color: var(--c-terminal-text); font-weight: 600; }
+
+    [data-composition-id="tip-01-statusline"] .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 22px;
+    }
+    [data-composition-id="tip-01-statusline"] .status-chip {
+      font-size: 30px;
+      padding: 16px 28px;
+    }
+    [data-composition-id="tip-01-statusline"] .chip-label { color: var(--c-muted); }
+    [data-composition-id="tip-01-statusline"] .chip-value { color: var(--c-text); font-weight: 700; }
+
+    [data-composition-id="tip-01-statusline"] .statusbar-frame {
+      width: 1480px;
+      max-width: 90%;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-panel);
+      position: relative;
+      background: var(--c-terminal);
+      aspect-ratio: 16 / 4.5;
+    }
+    [data-composition-id="tip-01-statusline"] .statusbar-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.85) contrast(1.05);
+    }
+    [data-composition-id="tip-01-statusline"] .statusbar-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(34,31,28,0.05), rgba(34,31,28,0.65));
+    }
+
+    [data-composition-id="tip-01-statusline"] .ctx-wrap {
+      width: 1080px;
+      max-width: 80%;
+      display: grid;
+      gap: 24px;
+    }
+    [data-composition-id="tip-01-statusline"] .ctx-label {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--f-mono);
+      font-size: 32px;
+      color: var(--c-muted);
+    }
+    [data-composition-id="tip-01-statusline"] .ctx-label .ctx-pct {
+      color: var(--c-text);
+      font-weight: 700;
+    }
+    [data-composition-id="tip-01-statusline"] .progress-bar { height: 22px; }
+    [data-composition-id="tip-01-statusline"] .ctx-warning {
+      margin-top: 10px;
+      font-family: var(--f-mono);
+      font-size: 28px;
+      color: var(--c-danger);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0;
+    }
+
+    [data-composition-id="tip-01-statusline"] .statement-wrap {
+      text-align: center;
+    }
+    [data-composition-id="tip-01-statusline"] .statement-wrap .hero-statement {
+      font-size: 96px;
+    }
+  
+
+/* === Tip 10 esc-stop === */
+
+    /* 样片 2: esc-stop 及时止损 — 18.033s — 5 cues */
+    [data-composition-id="tip-10-esc-stop"] .cue {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 80px;
+    }
+    [data-composition-id="tip-10-esc-stop"] .hero-title-zh { font-size: 120px; }
+    [data-composition-id="tip-10-esc-stop"] .hero-char {
+      display: inline-block;
+      transform: translateY(40px);
+      opacity: 0;
+    }
+
+    [data-composition-id="tip-10-esc-stop"] .token-stream {
+      width: 1100px;
+      max-width: 80%;
+      font-size: 32px;
+    }
+    [data-composition-id="tip-10-esc-stop"] .token-line {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+
+    [data-composition-id="tip-10-esc-stop"] .esc-wrap {
+      display: grid;
+      place-items: center;
+      gap: 0;
+    }
+    [data-composition-id="tip-10-esc-stop"] .keycap.lg {
+      transform: translateY(-200px) scale(0.6);
+      opacity: 0;
+    }
+    [data-composition-id="tip-10-esc-stop"] .esc-impact {
+      position: absolute;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      border: 4px solid var(--c-orange);
+      opacity: 0;
+      transform: scale(0.4);
+      pointer-events: none;
+    }
+
+    [data-composition-id="tip-10-esc-stop"] .compare-grid {
+      max-width: 1280px;
+    }
+    [data-composition-id="tip-10-esc-stop"] .compare-card .compare-value {
+      font-size: 64px;
+    }
+
+    [data-composition-id="tip-10-esc-stop"] .statement-wrap { text-align: center; }
+    [data-composition-id="tip-10-esc-stop"] .hero-statement { font-size: 100px; }
+  
