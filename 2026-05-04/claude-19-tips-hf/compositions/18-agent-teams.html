@@ -132,8 +132,8 @@
             <span class="agent-node-label">Sonnet 4.6</span>
           </div>
           <div class="agent-node n3">
-            <img class="agent-logo codex" src="../assets/codex-logo.png" alt="Codex" />
-            <span class="agent-node-label">Codex</span>
+            <img class="agent-logo claude" src="../assets/claude-code-logo.png" alt="Claude" />
+            <span class="agent-node-label">Haiku 4.5</span>
           </div>
 
           <span class="talk-dot" id="talk-dot-1" style="left:230px; top:230px;">⋯</span>
@@ -185,8 +185,8 @@
               <span class="worker-done-stamp" id="worker-2-done">✓</span>
             </div>
             <div class="worker-slot" id="worker-3">
-              <img class="worker-logo codex" src="../assets/codex-logo.png" alt="Codex" />
-              <div class="worker-label">Codex</div>
+              <img class="worker-logo claude" src="../assets/claude-code-logo.png" alt="Haiku" />
+              <div class="worker-label">Haiku</div>
               <div class="worker-task">Task C</div>
               <div class="worker-spinner-row" id="worker-3-spin">
                 <span class="worker-spinner-ring" id="worker-3-ring"></span>
@@ -194,6 +194,22 @@
               </div>
               <span class="worker-done-stamp" id="worker-3-done">✓</span>
             </div>
+          </div>
+
+          <!-- ⭐ Agent Teams 核心：worker↔worker 横向沟通 -->
+          <svg class="lateral-svg" viewBox="0 0 1920 1080">
+            <path class="lateral-link" id="lat-12"
+                  d="M 700 685 Q 800 620 900 685" />
+            <path class="lateral-link" id="lat-23"
+                  d="M 1020 685 Q 1120 620 1220 685" />
+          </svg>
+          <div class="lateral-chip" id="lat-chip-1"
+                style="left:800px; top:600px;">
+            <span>↔</span><span>改了 API</span>
+          </div>
+          <div class="lateral-chip" id="lat-chip-2"
+                style="left:1120px; top:600px;">
+            <span>↔</span><span>用 user_pref 表</span>
           </div>
 
           <span class="result-chip" id="result-chip-1"
@@ -233,6 +249,30 @@
               </div>
             </div>
             <div class="vs-agents-area">
+              <!-- 父 agent（hierarchical 标识，sub-agent 子向父单向汇报） -->
+              <div class="sub-parent-row" id="sub-parent">
+                <img class="sub-parent-agent" src="../assets/claude-code-logo.png" alt="Parent" />
+                <span class="sub-parent-label">Parent</span>
+              </div>
+              <!-- 父→子 单向箭头 -->
+              <svg class="sub-hierarchy-svg" viewBox="0 0 700 320">
+                <defs>
+                  <marker id="sub-arrow-head" markerWidth="10" markerHeight="10"
+                          refX="8" refY="5" orient="auto">
+                    <path d="M0,0 L10,5 L0,10 Z" fill="#B85138" opacity="0.55"/>
+                  </marker>
+                </defs>
+                <path class="sub-down-arrow" id="sub-arrow-1"
+                      d="M 350 110 L 180 215"
+                      marker-end="url(#sub-arrow-head)"/>
+                <path class="sub-down-arrow" id="sub-arrow-2"
+                      d="M 350 110 L 350 215"
+                      marker-end="url(#sub-arrow-head)"/>
+                <path class="sub-down-arrow" id="sub-arrow-3"
+                      d="M 350 110 L 520 215"
+                      marker-end="url(#sub-arrow-head)"/>
+              </svg>
+              <!-- 子之间的横向连接（断线，强化"子之间不能聊"） -->
               <svg class="vs-conn-svg" viewBox="0 0 700 320">
                 <path class="conn-line-sub" d="M 180 240 L 350 240" />
                 <path class="conn-line-sub" d="M 350 240 L 520 240" />
@@ -277,7 +317,7 @@
               <div class="vs-agent-trio">
                 <img class="vs-mini-agent claude" src="../assets/claude-code-logo.png" alt="" />
                 <img class="vs-mini-agent claude" src="../assets/claude-code-logo.png" alt="" />
-                <img class="vs-mini-agent codex" src="../assets/codex-logo.png" alt="" />
+                <img class="vs-mini-agent claude" src="../assets/claude-code-logo.png" alt="" />
               </div>
             </div>
             <div class="vs-todo-row">
@@ -359,6 +399,8 @@
       tl.set(root + ' .report-chip', { xPercent: -50 }, 0);
       tl.set(root + ' .scene4-tagline', { xPercent: -50 }, 0);
       tl.set(root + ' .result-chip', { xPercent: -50 }, 0);
+      tl.set(root + ' .lateral-chip', { xPercent: -50 }, 0);
+      tl.set(root + ' .sub-parent-row', { xPercent: -50 }, 0);
 
       // ========== 全程层呼吸 ==========
       tl.to(root + ' #grid',
@@ -533,6 +575,50 @@
           transformOrigin: 'center center' },
         14.40);
 
+      // ⭐ 14.70-16.60 worker↔worker 横向沟通（Agent Teams 核心特征）
+      // worker-1 ↔ worker-2 link
+      tl.fromTo(root + ' #lat-12',
+        { opacity: 0 },
+        { opacity: 0.85, duration: 0.4, ease: 'power3.out',
+          immediateRender: false },
+        14.70);
+      tl.to(root + ' #lat-12',
+        { strokeDashoffset: -28, duration: 0.9, ease: 'none', repeat: 2 },
+        14.80);
+      // chip 1: 改了 API
+      tl.fromTo(root + ' #lat-chip-1',
+        { opacity: 0, scale: 0, y: 6 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: 'back.out(2.0)',
+          immediateRender: false },
+        14.95);
+      tl.to(root + ' #lat-chip-1',
+        { opacity: 0, scale: 0.85, y: -6, duration: 0.35, ease: 'power3.in' },
+        16.20);
+
+      // worker-2 ↔ worker-3 link
+      tl.fromTo(root + ' #lat-23',
+        { opacity: 0 },
+        { opacity: 0.85, duration: 0.4, ease: 'power3.out',
+          immediateRender: false },
+        15.50);
+      tl.to(root + ' #lat-23',
+        { strokeDashoffset: -28, duration: 0.9, ease: 'none', repeat: 1 },
+        15.60);
+      // chip 2: 用 user_pref 表
+      tl.fromTo(root + ' #lat-chip-2',
+        { opacity: 0, scale: 0, y: 6 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: 'back.out(2.0)',
+          immediateRender: false },
+        15.75);
+      tl.to(root + ' #lat-chip-2',
+        { opacity: 0, scale: 0.85, y: -6, duration: 0.35, ease: 'power3.in' },
+        16.50);
+
+      // 16.80 横向 link 减弱（让位给 result chip 阶段）
+      tl.to([root + ' #lat-12', root + ' #lat-23'],
+        { opacity: 0.30, duration: 0.4, ease: 'power3.in' },
+        16.80);
+
       // 17.20/17.50/17.80 worker 完成 ✓ + result chip 飞回
       [
         { stamp: '#worker-1-done', spin: '#worker-1-spin',
@@ -628,6 +714,24 @@
         { opacity: 1, x: 0, scale: 1, duration: 0.55, ease: 'back.out(1.5)',
           immediateRender: false },
         22.90);
+
+      // 23.20 sub 卡父 agent 入场（hierarchical 标识）
+      tl.fromTo(root + ' #sub-parent',
+        { opacity: 0, y: -10 },
+        { opacity: 0.85, y: 0, duration: 0.4, ease: 'power3.out',
+          immediateRender: false },
+        23.20);
+      // 23.40 父→子 单向箭头 fade in (stagger)
+      tl.fromTo(root + ' .sub-down-arrow',
+        { opacity: 0 },
+        { opacity: 0.55, duration: 0.4, ease: 'power3.out',
+          stagger: 0.10,
+          immediateRender: false },
+        23.40);
+      // 23.80 父→子箭头 dashoffset 流动（向下流，强调单向 hierarchical）
+      tl.to(root + ' .sub-down-arrow',
+        { strokeDashoffset: 30, duration: 1.2, ease: 'none', repeat: 4 },
+        23.80);
 
       tl.fromTo(root + ' #sub-no-comm',
         { opacity: 0, scale: 0.5 },

@@ -6321,10 +6321,6 @@ html, body {
       image-rendering: pixelated;
       background: #2A2826;
     }
-    [data-composition-id="tip-18-agent-teams"] .agent-logo.codex {
-      background: #2A2826;
-      image-rendering: auto;
-    }
 
     [data-composition-id="tip-18-agent-teams"] .opener-subtitle {
       display: inline-flex;
@@ -6535,9 +6531,6 @@ html, body {
     }
     [data-composition-id="tip-18-agent-teams"] .worker-logo.claude {
       image-rendering: pixelated;
-    }
-    [data-composition-id="tip-18-agent-teams"] .worker-logo.codex {
-      image-rendering: auto;
     }
     [data-composition-id="tip-18-agent-teams"] .worker-label {
       font-family: var(--f-mono);
@@ -6789,6 +6782,85 @@ html, body {
                   0 0 0 1px rgba(43, 38, 34, 0.08);
     }
     [data-composition-id="tip-18-agent-teams"] .vs-mini-agent.claude { image-rendering: pixelated; }
+
+    /* === Scene 4 横向沟通 worker↔worker（Agent Teams 核心特征）=== */
+    [data-composition-id="tip-18-agent-teams"] .lateral-svg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 7;
+    }
+    [data-composition-id="tip-18-agent-teams"] .lateral-link {
+      fill: none;
+      stroke: var(--c-success);
+      stroke-width: 3;
+      stroke-dasharray: 8 6;
+      opacity: 0;
+    }
+    [data-composition-id="tip-18-agent-teams"] .lateral-chip {
+      position: absolute;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(78, 143, 114, 0.94);
+      color: #fff;
+      font-family: var(--f-mono);
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      box-shadow: 0 8px 20px rgba(78, 143, 114, 0.40);
+      white-space: nowrap;
+      opacity: 0;
+      z-index: 13;
+    }
+
+    /* === Scene 5 sub 卡父 agent + 单向箭头（强调 hierarchical）=== */
+    [data-composition-id="tip-18-agent-teams"] .sub-parent-row {
+      position: absolute;
+      left: 50%;
+      top: 16px;
+      /* 居中由 GSAP xPercent: -50 控制 */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      z-index: 6;
+    }
+    [data-composition-id="tip-18-agent-teams"] .sub-parent-agent {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      background: #2A2826;
+      object-fit: cover;
+      image-rendering: pixelated;
+      box-shadow: 0 6px 16px rgba(43, 38, 34, 0.22),
+                  0 0 0 1px rgba(43, 38, 34, 0.08);
+      filter: grayscale(0.3);
+      opacity: 0.85;
+    }
+    [data-composition-id="tip-18-agent-teams"] .sub-parent-label {
+      font-family: var(--f-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--c-muted);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+    [data-composition-id="tip-18-agent-teams"] .sub-hierarchy-svg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+    }
+    [data-composition-id="tip-18-agent-teams"] .sub-down-arrow {
+      fill: none;
+      stroke: var(--c-danger);
+      stroke-width: 2.5;
+      stroke-dasharray: 6 4;
+      opacity: 0.55;
+    }
     [data-composition-id="tip-18-agent-teams"] .vs-card.sub .vs-mini-agent {
       filter: grayscale(0.5);
       opacity: 0.65;
