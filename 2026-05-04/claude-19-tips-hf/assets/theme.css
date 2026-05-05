@@ -1819,7 +1819,8 @@ html, body {
         0 0 0 2px var(--c-orange),
         0 0 48px rgba(217, 119, 87, 0.4);
     }
-    [data-composition-id="tip-04-plan-mode"] .keycap.pm-pressed {
+    [data-composition-id="tip-04-plan-mode"] .keycap.pm-pressed,
+    [data-composition-id="tip-11-double-esc"] .keycap.pm-pressed {
       transform: translateY(6px);
       border-bottom-width: 1px;
       box-shadow:
@@ -2229,7 +2230,8 @@ html, body {
 
     /* Claude 提问气泡（左对齐，Claude 橙 dot） */
     [data-composition-id="tip-06-ask-questions"] .claude-bubble,
-    [data-composition-id="tip-09-claude-md"] .claude-bubble {
+    [data-composition-id="tip-09-claude-md"] .claude-bubble,
+    [data-composition-id="tip-11-double-esc"] .claude-bubble {
       align-self: flex-start;
       max-width: 720px;
       padding: 16px 22px;
@@ -2247,7 +2249,8 @@ html, body {
       opacity: 0;
     }
     [data-composition-id="tip-06-ask-questions"] .claude-bubble-dot,
-    [data-composition-id="tip-09-claude-md"] .claude-bubble-dot {
+    [data-composition-id="tip-09-claude-md"] .claude-bubble-dot,
+    [data-composition-id="tip-11-double-esc"] .claude-bubble-dot {
       width: 12px;
       height: 12px;
       border-radius: 999px;
@@ -2259,7 +2262,8 @@ html, body {
 
     /* 用户气泡（右对齐，teal dot） */
     [data-composition-id="tip-06-ask-questions"] .user-bubble,
-    [data-composition-id="tip-09-claude-md"] .user-bubble {
+    [data-composition-id="tip-09-claude-md"] .user-bubble,
+    [data-composition-id="tip-11-double-esc"] .user-bubble {
       align-self: flex-end;
       max-width: 720px;
       padding: 16px 22px;
@@ -2278,7 +2282,8 @@ html, body {
       opacity: 0;
     }
     [data-composition-id="tip-06-ask-questions"] .user-bubble-dot,
-    [data-composition-id="tip-09-claude-md"] .user-bubble-dot {
+    [data-composition-id="tip-09-claude-md"] .user-bubble-dot,
+    [data-composition-id="tip-11-double-esc"] .user-bubble-dot {
       width: 12px;
       height: 12px;
       border-radius: 999px;
@@ -3647,5 +3652,288 @@ html, body {
       transform-origin: center;
     }
 
+
+/* === Tip 11 double-esc — 21.167s — 7 cues === */
+
+    [data-composition-id="tip-11-double-esc"] .hero-zh {
+      font-family: var(--f-zh);
+      font-weight: 800;
+      font-size: 132px;
+      line-height: 1.1;
+      letter-spacing: 0;
+      white-space: nowrap;
+      margin: 0;
+      padding: 8px 0;
+    }
+
+    /* 双 ESC 键并排（B 段）— 居中由 GSAP xPercent/yPercent: -50 控制 */
+    [data-composition-id="tip-11-double-esc"] .dual-esc-row {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      opacity: 0;
+    }
+    [data-composition-id="tip-11-double-esc"] .dual-esc-row .keycap.lg {
+      min-width: 200px;
+      width: 200px;
+      height: 200px;
+      font-size: 72px;
+      letter-spacing: 0.04em;
+    }
+    [data-composition-id="tip-11-double-esc"] .x2-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 90px;
+      height: 90px;
+      padding: 0 18px;
+      border-radius: 999px;
+      background: rgba(217, 119, 87, 0.14);
+      border: 2px solid var(--c-orange);
+      color: var(--c-orange);
+      font-family: var(--f-mono);
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      box-shadow: 0 0 36px rgba(217, 119, 87, 0.30);
+      opacity: 0;
+    }
+
+    /* 主舞台容器（C-F） */
+    [data-composition-id="tip-11-double-esc"] .demo-stage {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+    }
+
+    /* 终端居中 */
+    [data-composition-id="tip-11-double-esc"] .demo-terminal {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1100px;
+      max-width: 1100px;
+    }
+    [data-composition-id="tip-11-double-esc"] .demo-terminal .cc-body {
+      min-height: 460px;
+      padding: 28px 36px;
+    }
+    [data-composition-id="tip-11-double-esc"] .bubbles-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+    }
+    [data-composition-id="tip-11-double-esc"] .bubbles-col .user-bubble,
+    [data-composition-id="tip-11-double-esc"] .bubbles-col .claude-bubble {
+      max-width: 740px;
+      font-size: 22px;
+      padding: 12px 18px;
+    }
+
+    /* 走错路 chip — 复用 Tip 10 drift-warning-chip 视觉，本地放在终端上方 */
+    [data-composition-id="tip-11-double-esc"] .wrong-path-chip {
+      position: absolute;
+      top: 130px;
+      left: 50%;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: rgba(193, 75, 60, 0.12);
+      border: 1px solid rgba(193, 75, 60, 0.55);
+      color: var(--c-danger);
+      font-family: var(--f-mono);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      box-shadow: 0 6px 22px rgba(193, 75, 60, 0.20);
+      opacity: 0;
+      z-index: 4;
+    }
+    [data-composition-id="tip-11-double-esc"] .wrong-path-chip-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--c-danger);
+      box-shadow: 0 0 12px rgba(193, 75, 60, 0.7);
+    }
+
+    /* 节点选择 list（D 段）— 滑入 from 右 */
+    [data-composition-id="tip-11-double-esc"] .node-list {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 320px;
+      padding: 16px;
+      border-radius: 14px;
+      background: rgba(245, 240, 230, 0.96);
+      border: 1px solid var(--c-line);
+      box-shadow: var(--shadow-panel);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      opacity: 0;
+      z-index: 5;
+    }
+    [data-composition-id="tip-11-double-esc"] .node-list-title {
+      font-family: var(--f-mono);
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-muted);
+      font-weight: 700;
+      padding: 4px 10px 8px;
+      border-bottom: 1px dashed var(--c-line);
+      margin-bottom: 4px;
+    }
+    [data-composition-id="tip-11-double-esc"] .node-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: transparent;
+      border: 1px solid transparent;
+      font-family: var(--f-mono);
+      font-size: 16px;
+      color: var(--c-text);
+      transition: none;
+    }
+    [data-composition-id="tip-11-double-esc"] .node-item-num {
+      font-family: var(--f-mono);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--c-muted);
+      letter-spacing: 0.04em;
+      min-width: 28px;
+    }
+    [data-composition-id="tip-11-double-esc"] .node-item-text {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    [data-composition-id="tip-11-double-esc"] .node-item.active {
+      background: rgba(47, 125, 115, 0.10);
+      border: 1px solid var(--c-teal);
+      box-shadow: 0 0 0 2px rgba(47, 125, 115, 0.25), 0 0 22px rgba(47, 125, 115, 0.18);
+      color: var(--c-teal);
+    }
+    [data-composition-id="tip-11-double-esc"] .node-item.active .node-item-num {
+      color: var(--c-teal);
+    }
+
+    /* 方向键 + 回车键提示（D 段） */
+    [data-composition-id="tip-11-double-esc"] .key-hints {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      opacity: 0;
+      z-index: 5;
+    }
+    [data-composition-id="tip-11-double-esc"] .key-hints .keycap {
+      min-width: 52px;
+      height: 52px;
+      font-size: 22px;
+      padding: 0 14px;
+    }
+    [data-composition-id="tip-11-double-esc"] .key-hints-label {
+      font-family: var(--f-mono);
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-muted);
+      font-weight: 700;
+    }
+
+    /* 速度感横向 whip-streak（E 段） */
+    [data-composition-id="tip-11-double-esc"] .whip-streak {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 60%;
+      height: 6px;
+      background: linear-gradient(90deg, transparent, rgba(255, 248, 230, 0.95), transparent);
+      filter: blur(8px);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 7;
+    }
+
+    /* discarded ghost（已被丢弃的对话节点 — F 段） */
+    [data-composition-id="tip-11-double-esc"] .user-bubble.discarded,
+    [data-composition-id="tip-11-double-esc"] .claude-bubble.discarded {
+      opacity: 0.28;
+      border-style: dashed;
+      filter: grayscale(0.6);
+      box-shadow: none;
+    }
+
+    /* discard banner（F 段警告） */
+    [data-composition-id="tip-11-double-esc"] .discard-banner {
+      position: absolute;
+      left: 50%;
+      top: calc(50% + 200px);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      border-radius: 999px;
+      background: rgba(193, 75, 60, 0.95);
+      color: #fff;
+      font-family: var(--f-zh);
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      box-shadow: 0 0 32px rgba(193, 75, 60, 0.55);
+      opacity: 0;
+      z-index: 9;
+      white-space: nowrap;
+    }
+    [data-composition-id="tip-11-double-esc"] .discard-banner-icon {
+      font-family: var(--f-mono);
+      font-size: 28px;
+      font-weight: 800;
+    }
+    [data-composition-id="tip-11-double-esc"] .discard-banner-en {
+      font-family: var(--f-en);
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-left: 8px;
+    }
+
+    /* 共享：撞击 ripple + 白闪 — 复用 Tip 10 视觉（仅扩展 selector） */
+    [data-composition-id="tip-11-double-esc"] .impact-ripple {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 80px;
+      height: 80px;
+      border-radius: 999px;
+      border: 4px solid rgba(217, 119, 87, 0.85);
+      box-shadow: 0 0 60px rgba(217, 119, 87, 0.55);
+      pointer-events: none;
+      opacity: 0;
+      z-index: 8;
+    }
+    [data-composition-id="tip-11-double-esc"] .white-flash {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 252, 244, 1);
+      pointer-events: none;
+      opacity: 0;
+      z-index: 12;
+    }
 
 
