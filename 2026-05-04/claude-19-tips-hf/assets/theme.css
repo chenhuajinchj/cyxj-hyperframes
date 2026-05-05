@@ -5705,8 +5705,15 @@ html, body {
       z-index: 12;
     }
     [data-composition-id="tip-16-remote-control"] .central-bubble .cb-logo {
-      font-size: 64px;
-      line-height: 1;
+      width: 110px;
+      height: 110px;
+      border-radius: 22px;
+      display: block;
+      object-fit: cover;
+      image-rendering: pixelated;
+      background: #2A2826;
+      box-shadow: 0 8px 22px rgba(43, 38, 34, 0.32),
+                  0 0 0 1px rgba(43, 38, 34, 0.08);
     }
     [data-composition-id="tip-16-remote-control"] .central-bubble .cb-title {
       font-family: var(--f-zh);
