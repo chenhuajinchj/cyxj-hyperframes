@@ -27,6 +27,15 @@ description: 中文 YouTube 教程视频的全生命周期助手（基于 HyperF
 
 ## 阶段 A：建工程
 
+### A0. URL 输入早分流（必做）
+
+**进入阶段 A 之前先看用户输入是不是 URL**（如「基于 anthropic.com 做个视频」「把这个网站做成片头 https://...」）：
+
+- ✅ 是 URL → 立即移交 `/website-to-hyperframes` 跑前 5 步（capture / DESIGN / SCRIPT / STORYBOARD / VO），收到 capture 结果（截图 + 设计 token + 文案大纲）后再回到本 skill 的 A1
+- ❌ 不是 URL（用户给的是文字主题、参考截图、口播文案）→ 直接跳到 A1
+
+**不要自己手动 Read 网页**——/website-to-hyperframes 有专门的浏览器抓取 + 设计提取流程，跳过会丢失关键的字体、配色、品牌信息。
+
 ### A1. 问清四件事（一次性，用 AskUserQuestion 多选）
 
 1. **视频形态**（影响选哪个模板）：
