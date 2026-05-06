@@ -133,12 +133,14 @@ XCYJ（陈与小金）的 YouTube 教程视频**生产工作台**——基于 He
 
 ## 仓库速查
 
+> ⚠️ **本文档落后 CLAUDE.md 数轮迭代**：缺 `tutorial-8beat` 模板行 / Claude-Codex 边界节同步等。下一轮独立任务对齐。
+
 | 路径 | 内容 |
 |---|---|
 | `参考库/INDEX.md` | ⭐ 一切入口：18 工程 + 46 catalog 零件 + 9 skill 索引 |
-| `templates/host-overlay/` | 录屏铺底 + 4 overlay 模板 |
-| `templates/host-overlay-alpha/` | 同上 alpha 变体（达芬奇用） |
-| `templates/demo-fullscreen/` | 7 beat 串联无录屏 |
+| `templates/host-overlay/` | ⚠️ **已废弃** 录屏铺底 + 4 overlay 模板（伪模板，请从 0 写） |
+| `templates/host-overlay-alpha/` | ⚠️ **已废弃** 同上 alpha 变体（伪模板，请从 0 写） |
+| `templates/demo-fullscreen/` | ⚠️ **已废弃** 7 beat 串联无录屏（伪模板，请从 0 写） |
 | `TEMPLATE_USAGE.md` | 模板复用 checklist |
 | `MOTION_PHILOSOPHY.md` | Nate 的动效美学 10 法则 + Infinite 拆解 |
 | `examples/codex-intro/script.md` | Codex × Claude Code 教程实际配音文案 |

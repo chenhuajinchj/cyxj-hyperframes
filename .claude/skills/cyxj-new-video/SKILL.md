@@ -47,13 +47,13 @@ description: 中文 YouTube 教程视频的全生命周期助手（基于 HyperF
 
 2. 有没有录屏（主播口播 + 屏幕操作）？
    ├─ 有 → 后期想不想在达芬奇里精修录屏 / 调色 / 替换素材？
-   │       ├─ 想 → templates/host-overlay-alpha/   （ProRes 4444 alpha MOV，达芬奇分轨合成）
-   │       └─ 不想，直接出成品 → templates/host-overlay/   （MP4，录屏 + overlay 烧死）
+   │       ├─ 想 → ⚠️ **已废弃** templates/host-overlay-alpha/ —— 一次性工程改名而成的伪模板（id 未抽净，内容是 claude-overlays-only 旧工程的具体产物）。这种形态请从 0 写工程
+   │       └─ 不想，直接出成品 → ⚠️ **已废弃** templates/host-overlay/ —— 同上（claude-demo-v2 旧工程 rename），请从 0 写
    └─ 没有 → 继续
 
 3. 是不是结构化教程（≥30s，含「hook + 痛点 + 解决方案 + 流程」完整段落，≥6 beat）？
    ├─ 是 → templates/tutorial-8beat/   （8 beat 教程骨架，含 face FULL→PiP→FULL 时序、kicker、终端、卡片栈、执行计划列表、章节切换卡）
-   └─ 否（单段演示 / 概念片 / 品牌片中段 / 纯视觉叙事 ≤30s）→ templates/demo-fullscreen/   （7 beat 全屏叙事，无录屏）
+   └─ 否（单段演示 / 概念片 / 品牌片中段 / 纯视觉叙事 ≤30s）→ ⚠️ **已废弃** templates/demo-fullscreen/ —— 一次性工程改名而成的伪模板（codex-claude-intro 旧工程 rename，未抽净）。请从 0 写
 ```
 
 **对应 DNA 形态**（参考库/INDEX.md 第 5 节模板表已标注）：
@@ -62,14 +62,16 @@ description: 中文 YouTube 教程视频的全生命周期助手（基于 HyperF
 
 **多段混用**：一条视频可以用多个模板，达芬奇里串联（如开头 demo-fullscreen 钩子 → 中段 host-overlay 录屏讲解 → 收尾 demo-fullscreen 品牌 hold）。每段单独建 `2026-MM-DD/<slug>-<segment>/` 工作区分别 render。
 
+> ⚠️ **2026-05-06 模板状态**：3 个伪模板（demo-fullscreen / host-overlay / host-overlay-alpha）已废弃。当前只有 `templates/tutorial-8beat/` 是从 0 设计的真模板。其他形态请从 0 写工程（手写 meta.json + index.html + compositions/*.html，参考 `docs/hyperframes-official/getting-started/quickstart.md` 的最小骨架）。文件未移动以避免新断裂，下一轮独立任务清理。
+
 ### A1. 问清四件事（一次性，用 AskUserQuestion 多选）
 
 1. **视频形态**（影响选哪个模板，按 A0.5 决策树排序）：
    - A. 9:16 竖屏 → 调用 `/short-form-video` skill 接管，本 skill 退出
-   - B. 横屏 + 有录屏 + 直接出成品 → `templates/host-overlay/`
-   - C. 横屏 + 有录屏 + 达芬奇精修 → `templates/host-overlay-alpha/`
+   - B. ⚠️ **已废弃** 横屏 + 有录屏 + 直接出成品 → `templates/host-overlay/`（伪模板，请从 0 写）
+   - C. ⚠️ **已废弃** 横屏 + 有录屏 + 达芬奇精修 → `templates/host-overlay-alpha/`（伪模板，请从 0 写）
    - D. 横屏 + 无录屏 + 结构化教程（≥30s ≥6 beat 含口播） → `templates/tutorial-8beat/`
-   - E. 横屏 + 无录屏 + 单段演示 / 概念片 → `templates/demo-fullscreen/`
+   - E. ⚠️ **已废弃** 横屏 + 无录屏 + 单段演示 / 概念片 → `templates/demo-fullscreen/`（伪模板，请从 0 写）
 2. **主题** —— 自由文本，转 kebab-case 当 slug（去除中文，保留拼音/英文/数字/`-`）
 3. **大致时长** —— 5-30s / 30-60s / 60-120s / 自定义
 4. **是否有参考素材**（决定要不要走阶段 D 风格借鉴）：
