@@ -2,11 +2,11 @@
 
 > **入口文件**。做新视频前先扫这里：找参考工程、找零件。
 >
-> 📅 最后更新：2026-05-03 · 18 个完整工程 + 46 个 catalog 零件 + 78 页官方文档镜像
+> 📅 最后更新：2026-05-06 · 19 个完整工程 + 46 个 catalog 零件 + 78 页官方文档镜像
 
 ---
 
-## 一、完整工程（18 个，可直接打开）
+## 一、完整工程（19 个，可直接打开）
 
 > 路径都是软链或本地真目录。直接 `cd 进去 npx hyperframes preview` 就能跑。
 
@@ -33,6 +33,7 @@
 |---|---|---|---|
 | `nate-demos/golden-ratio-demo/` | 16:9 | 37.67s | 黄金螺旋 SVG + 3 色分割，**数学动画范例** |
 | `nate-demos/aisoc-lesson-5-1/` | 16:9 | 112s | 全屏讲者 + 信息卡堆栈，**长视频教学结构** |
+| `我的作品/2026-05-04-claude-19-tips-hf/` | 16:9 | ~7 分钟 | 21 章一招一节，cc-window 终端 UI 体系，**你的长教程基线**（DNA + MY_MOTION_NOTES 沉淀源） |
 
 ### 🏢 想做品牌 / Logo 演绎 / 产品发布
 
@@ -169,6 +170,7 @@ components 跟 blocks 不同：components 是"叠加层"，全局生效；blocks
 - `我的作品/2026-05-02-claude-demo-v2/` 用了：`grain-overlay`、`shimmer-sweep`
 - `我的作品/2026-05-02-claude-overlays-only/` 用了：`grain-overlay`、`shimmer-sweep`
 - `我的作品/2026-05-02-codex-claude-intro/` 用了：_（未引用 catalog 零件，全部自制）_
+- `我的作品/2026-05-04-claude-19-tips-hf/` 用了：`cinematic-zoom`、`flash-through-white`、`flowchart`、`logo-outro`、`macos-notification`、`whip-pan`、`grain-overlay`、`shimmer-sweep`
 
 <!-- AUTO:zero-usage:end -->
 
