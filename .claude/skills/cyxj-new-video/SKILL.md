@@ -91,9 +91,23 @@ cd $DATE/<slug>/
 提供后我会改各个 beat 的 html，跑 lint，preview。
 ```
 
-### A6. 接收文案后改各 beat
+### A6. DNA 自检 + 扫笔记 + 接收文案后改各 beat
 
-> ⚠️ **如果 A1 第 4 题答 "我有参考素材"，先走阶段 D 再回到 A6**。
+> ⚠️ **如果 A1 第 4 题答 "我有参考素材"，先走阶段 D 再回到 A6**（D2 已含 DNA 自检，可跳过本步第 1 项）。
+
+**前置 1：DNA 自检 5 题（跳过阶段 D 时强制跑）**：
+1. 读 `MY_VISUAL_DNA.md` 末尾 "## 自检清单" 5 题
+2. 对照本工程 `index.html` / theme.css / 各 beat HTML 逐题答 yes/no
+3. **5/5 yes 才能继续**；任何一条 no 必须先修复 brief 或 theme
+
+**前置 2：扫 MY_MOTION_NOTES.md 看本视频会触发哪些条目**：
+- 撞击 / 爆炸 / 闪现戏 → § 3（同帧合成模板）
+- 视觉风格全局变更（改主色、加新效果） → § 7（sample → broadcast → cleanup）
+- 涉及 2025-Q4 之后的最新产品功能 → § 8（联网双源审核）
+- 用 SVG filter（feTurbulence 等） → § 5（命名空间）
+- 用 cc-window 终端 UI → 直接 link `templates/components/cc-window/cc-window.css`
+
+**前置 3：复用零件**——优先 `templates/components/` 已有零件（当前：cc-window）+ catalog 已装零件，不要重写。
 
 用户提供文案后，改 `compositions/*.html`：每个 beat 的 headline、card name、列表项等。
 **严格遵守仓库根 CLAUDE.md 的 6 条硬约束**：
@@ -123,10 +137,11 @@ npx hyperframes render --quality standard --output renders/final.mp4    # 成片
 
 **目的**：让参考素材（截图/视频）影响视觉风格，但**强制保留小陈自己的视觉 DNA**——避免被参考完全带跑。
 
-### D1. 必读 3 个文件
+### D1. 必读 4 个文件
 1. `MY_VISUAL_DNA.md`（仓库根）—— 个人美学宪法
-2. `docs/STYLE_BORROW_PLAYBOOK.md`（仓库 docs/）—— 借鉴方法论 + brief 骨架
-3. 用户参考图：`参考图/<topic-slug>/` 下所有 PNG/JPG（≤10 张全 Read，≥10 张挑代表性的 8-12 张）
+2. `MY_MOTION_NOTES.md`（仓库根）—— 19 招实战沉淀的动效与工程笔记（10 节实操陷阱 + 工程方法论 + 可复用范式索引）
+3. `docs/STYLE_BORROW_PLAYBOOK.md`（仓库 docs/）—— 借鉴方法论 + brief 骨架
+4. 用户参考图：`参考图/<topic-slug>/` 下所有 PNG/JPG（≤10 张全 Read，≥10 张挑代表性的 8-12 张）
 
 ### D2. 写本工程的 STYLE_BRIEF.md
 按 PLAYBOOK 步骤 2-3 走：
@@ -284,6 +299,57 @@ cd templates/<新模板名>
 ```
 
 DNA 频繁改 = 没 DNA。只有**反复确认有用**的偏好才升级进 DNA。
+
+---
+
+## 协作惯例（19 招实战沉淀）
+
+> 来自 retrospective `03-skills.md §3` 的 12 个 Claude Code 协作开窍点凝练。
+> 这是本 skill 默认的协作风格，跳过会被用户感觉不专业。
+
+### 1. 视觉跟语义走，每段口播必须对应一个视觉变化
+
+不要先想"32 秒可以塞多少效果"再反推视觉。先把 SRT 切成"段·语义·秒数"三列表，每段口播对应一个视觉 cue。空窗段用过程视觉（grid pulse / particles drift）填，不准 spoiler 下一句。
+
+详见 `MY_MOTION_NOTES.md § 4`。出处：commit `a4c5843` Tip 1 V3→V4 教训。
+
+### 2. commit body 写"原因 + 修法"双段，不只 what 还要 why
+
+不只描述改了什么，还要描述为什么之前错了。示例：
+
+> "top:50% + translate(-50%) 居中失效，因为 cc-window grid layout 实际渲染高度比预期高 ~50px → 改用 flexbox inset:0"
+
+同 chapter 的多版本迭代（如 hook V8a/V9/V10）写在**单个 commit body 内**，不要每个版本一个 commit。
+
+### 3. Callback 历史 chapter 视觉作为叙事手法
+
+如果某个 chapter 用过的视觉（如 mode-toggle-bar、cc-window）在后续 chapter 又出现，**刻意保持视觉同步**（用同一个 CSS 类，不重写一份）。这不是偷懒，是叙事手法——让用户感受到"这个东西又出现了"的呼应感。
+
+19 招里 mode-toggle-bar 在 Tip 4/6/7 三处共用，cc-window 在 12 章共用。
+
+### 4. 一个 commit 一个主题，不是一个 chapter
+
+"Tip 1 视觉重做对齐口播 + Tip 2 polaroid 溢出修复" 是合理 commit（主题 = 视觉口播对齐），跨多个 chapter 一起改没问题。
+
+但 "改 Tip 1 字号 + 改 Tip 2 颜色 + 改 Tip 3 时长" 是 3 个不同主题，应拆 3 个 commit。
+
+出处：commit `f2f0de1`。
+
+### 5. 推全前必单点 sample，不是 commit 全局改完再说
+
+视觉风格全局变更（改主色、改字体、加 wavy filter 等）**必须先选一个代表 chapter 做 sample → preview 截图给用户看 → 用户确认 → 才能 broadcast 到其他 chapter**。
+
+反模式：直接改 `index.html` + `theme.css` 全局 token 推全所有 chapter（19-tips 9 分钟内 3 commit + 1 Revert 教训）。
+
+详见 `MY_MOTION_NOTES.md § 7`。
+
+### 6. 教程涉及最新产品功能必跑联网双源审核
+
+agent 凭训练数据出稿可能错配（训练数据滞后）。涉及 **2025-Q4 之后**的产品功能（Agent Teams / Skills / Plan Mode / Thinking Budget 等）必跑 grok-search `web_search` (extra_sources=2) + Tavily 2 源交叉验证。
+
+commit body 标注："联网核实（Tavily 2 源交叉验证 X.com / Y.com）"。
+
+详见 `MY_MOTION_NOTES.md § 8`。出处：commit `6f81556` Tip 18 教训。
 
 ---
 
