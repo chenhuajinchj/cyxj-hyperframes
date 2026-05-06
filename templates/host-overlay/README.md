@@ -65,7 +65,7 @@ npx hyperframes lint       # 必须 0 errors
 npx hyperframes preview    # 浏览器验收后再 render
 ```
 
-**硬约束**：GSAP `querySelector` 不能用 template literal（`` `${root} .x` `` 会触发 `template_literal_selector` error），永远硬编码 selector 字符串，如 `'[data-composition-id="beat-1-hook"] .b1-card'`。
+**硬约束**：GSAP `querySelector` 不能用 template literal（`` `${root} .x` `` 会触发 `template_literal_selector` error），永远硬编码 selector 字符串，如 `'[data-composition-id="beat-1-hook"] .b1-card'`。完整 8 条详见 [`../../docs/HARD_CONSTRAINTS.md`](../../docs/HARD_CONSTRAINTS.md)。
 
 ---
 

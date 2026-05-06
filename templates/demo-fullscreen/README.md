@@ -97,10 +97,12 @@ npx hyperframes preview    # 浏览器验收
 
 ## 已知约束
 
-**（a）GSAP selector 不能用 template literal**
-所有 `gsap.from / gsap.to / gsap.fromTo / document.querySelector` 的 selector 字符串必须硬编码，不能用反引号拼接变量。违反会导致 `npx hyperframes lint` 报 `template_literal_selector` error，渲染失败。
+通用 8 条硬约束见 [`../../docs/HARD_CONSTRAINTS.md`](../../docs/HARD_CONSTRAINTS.md)。下面是 demo-fullscreen 模板特定提醒：
 
-**（b）含中文文字的段落不能抽 Lottie 给达芬奇 21 使用**
+**（a）GSAP selector 不能用 template literal**（约束 #1 提醒）
+所有 `gsap.from / gsap.to / gsap.fromTo / document.querySelector` 必须硬编码 selector，违反会导致 `npx hyperframes lint` 报 `template_literal_selector` error。
+
+**（b）含中文文字的段落不能抽 Lottie 给达芬奇 21 使用**（约束 #3 在本模板的具体形态）
 demo-fullscreen 的 beat 内容通常包含大量中文文字（字幕、标签、标题）。如果你想把某个 beat 单独导出为 Lottie 在达芬奇 21 里叠加使用，含中文文字的部分会渲染失败（字形丢失或乱码）。必须走 hyperframes → ProRes 4444 alpha 路径，或在达芬奇里用字幕轨道单独处理中文文字。详见 `docs/lottie-davinci-experiment/`。
 
 **（c）配音后期在 NLE 加，模板内不带音频时间轴**

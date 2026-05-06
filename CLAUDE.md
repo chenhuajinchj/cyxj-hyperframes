@@ -73,16 +73,16 @@ XCYJ（陈与小金）的 YouTube 教程视频**生产工作台**——基于 He
 
 ## 必须遵守的硬约束
 
-1. **GSAP querySelector 不能用 template literal** —— 用 `` `${root} .x` `` 会让 `npx hyperframes lint` 报 `template_literal_selector` error。永远硬编码 selector 字符串。
-2. **复制 beat html 时全局换 beat id** —— CSS class 和 GSAP selector 两处都要换：
-   ```bash
-   sed -i '' 's/beat-3-terminal/beat-NEW-id/g' compositions/03-terminal.html
-   ```
-3. **DaVinci 21 不能渲染含中文文字的手写 Lottie** —— 详见 `docs/lottie-davinci-experiment/`。含文字必须走 hyperframes → ProRes 4444 alpha 路径。
-4. **中文 Whisper transcribe 要绕开 hyperframes CLI** —— hyperframes 把 DTW preset 写死成 `large-v3`（破折号），whisper-cpp 期望 `large.v3`（点号）。直接用 `whisper-cli`。
-5. **`npx hyperframes` 必须在工程目录里跑** —— 仓库根没有 package.json，CLI 读当前 cwd 的 `hyperframes.json` / `meta.json`。`/cyxj-new-video` 会自动 cd 到正确位置。
-6. **不要 commit `hyperframes-student-kit/` 或 `hyperframes-launches/`** —— 是上游 git 仓库，整目录被 .gitignore 排除。
-7. **大视频/音频不进 git** —— `.gitignore` 已排除 `*.mp4 *.mov *.mp3 *.wav *.m4a` 和 `录屏/`。
+详见 [`docs/HARD_CONSTRAINTS.md`](docs/HARD_CONSTRAINTS.md)（单源）。简表：
+
+1. GSAP querySelector 不能用 template literal
+2. 复制 beat html 时全局换 beat id（CSS class + GSAP selector 两处）
+3. DaVinci 21 不能渲染含中文文字的手写 Lottie（含文字走 ProRes 4444 alpha）
+4. 中文 Whisper transcribe 要绕开 hyperframes CLI（用 `whisper-cli`）
+5. `npx hyperframes` 必须在工程目录里跑（不在仓库根）
+6. 不要 commit `hyperframes-student-kit/` 或 `hyperframes-launches/`
+7. 大视频/音频不进 git（`.mp4 .mov .mp3 .wav .m4a` + `录屏/`）
+8. 中文字体在无头 Chromium 渲染时偶发回退（Google Fonts CDN 超时）
 
 ## hyperframes CLI 本体在哪
 

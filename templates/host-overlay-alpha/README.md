@@ -73,7 +73,7 @@ npx hyperframes preview  # 浏览器验收，确认透明背景显示正常
 ```
 
 **硬约束**：GSAP querySelector 不能用 template literal（`` `${root} .class` ``），
-永远硬编码 selector 字符串，否则 lint 报 `template_literal_selector` error。
+永远硬编码 selector 字符串，否则 lint 报 `template_literal_selector` error。完整 8 条详见 [`../../docs/HARD_CONSTRAINTS.md`](../../docs/HARD_CONSTRAINTS.md)。
 
 ### 6. 达芬奇合成步骤
 

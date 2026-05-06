@@ -87,10 +87,16 @@ npx hyperframes render --quality standard --format mp4 \
 
 ## 已知坑（吃过的亏）
 
-1. **DaVinci 21 不能渲染含中文文字的手写 Lottie** —— 详见 [`docs/lottie-davinci-experiment/`](docs/lottie-davinci-experiment/)。手写 Lottie 仅适合纯图形装饰（光圈、icon、装饰线），含文字必须走视频路径。
-2. **hyperframes 渲染时 GSAP querySelector 不能用 template literal** —— `\`${root} .x\`` 会让 lint 报 `template_literal_selector` error，必须硬编码字符串。
-3. **中文字体在无头 Chromium 渲染时偶发回退** —— Google Fonts CDN 超时会用系统默认字体。本地化或加 `document.fonts.ready` 等待门可以避免。
-4. **Whisper transcribe 中文要绕开 hyperframes CLI** —— CLI 传给 whisper-cli 的 DTW preset 是 `large-v3`（破折号），但 whisper-cpp 期望 `large.v3`（点号）。中文转写要直接用 whisper-cli。
+详见 [`docs/HARD_CONSTRAINTS.md`](docs/HARD_CONSTRAINTS.md)（仓库单源）。简表：
+
+1. GSAP querySelector 不能用 template literal（lint 报 `template_literal_selector` error）
+2. 复制 beat html 时全局换 beat id（不换 → 动画静默失效）
+3. DaVinci 21 不能渲染含中文文字的手写 Lottie（含文字走 ProRes 4444 alpha）
+4. 中文 Whisper transcribe 要绕开 hyperframes CLI（用 `whisper-cli`，DTW preset 名不一致）
+5. `npx hyperframes` 必须在工程目录里跑（仓库根无 package.json）
+6. 不要 commit `hyperframes-student-kit/` 或 `hyperframes-launches/`（上游 git 仓库）
+7. 大视频/音频不进 git（`.gitignore` 已排除 `*.mp4 *.mov *.mp3 *.wav *.m4a` 和 `录屏/`）
+8. 中文字体在无头 Chromium 渲染时偶发回退（Google Fonts CDN 超时，本地化字体可避）
 
 ---
 

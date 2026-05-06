@@ -142,13 +142,13 @@ npx hyperframes render --quality standard --format mp4 --output renders/final.mp
 
 ## 常见坑
 
-1. **typewriter selector 失效**：从 `xcyj-codex-claude-intro` 复制 03-terminal.html 后忘记把所有 `beat-3-terminal` 替换成新 beat id（CSS class + GSAP selector 两处），动画静默失效不报错。**用 sed 全局替换**：
+通用坑（GSAP template literal、beat id 替换、中文字体回退、不 commit 上游目录等）见仓库根 [`docs/HARD_CONSTRAINTS.md`](docs/HARD_CONSTRAINTS.md)。下面是 TEMPLATE_USAGE 场景特定的：
+
+1. **typewriter selector 失效**（约束 #2 的具体复现）：从 `xcyj-codex-claude-intro` 复制 `03-terminal.html` 后忘换 `beat-3-terminal`，CSS class + GSAP selector 两处都要 sed 全局替换：
    ```bash
    sed -i '' 's/beat-3-terminal/beat-NEW-id/g' compositions/03-terminal.html
    ```
-2. **template literal 在 querySelector 里**：lint 会报 `template_literal_selector` error。**永远用硬编码 selector 字符串**，不要 `\`${root}\``。
-3. **中文字体回退**：渲染是 headless Chromium，Google Fonts CDN 偶尔超时。如果输出字体看起来像系统默认（不是 Noto Sans SC），重渲一次或者把字体本地化。
-4. **commit 工程**：`hyperframes-student-kit/` 整个目录在 .gitignore 里。要保留代码到 git 必须 rsync 拷到 `xcyj-progress/工程名-snapshot/`：
+2. **commit 工程到 git**（约束 #6 的 workaround）：`hyperframes-student-kit/` 整个目录在 .gitignore 里。要保留代码到 git 必须 rsync 拷到 `xcyj-progress/工程名-snapshot/`：
    ```bash
    rsync -a --exclude='renders/' --exclude='*.mp4' --exclude='*.mov' \
      --exclude='*.mp3' --exclude='.DS_Store' --exclude='.debug-studio.mjs' \
