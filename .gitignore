@@ -13,6 +13,7 @@ hyperframes-launches/
 # 大视频/音频
 *.mp4
 *.mov
+*.webm
 *.mp3
 *.wav
 *.m4a
