@@ -54,5 +54,3 @@ except Exception as e:
     fi
 done
 
-echo ""
-echo "schema 见：knowledge/schemas/project-meta.md"
