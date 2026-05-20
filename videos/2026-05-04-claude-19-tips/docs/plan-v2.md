@@ -295,7 +295,7 @@ git commit -m "docs: add optional screen recording replacement list"
 ## Handoff Prompt For New Chat
 
 ```text
-请在 /Users/chenhuajin/项目/参考仓库/hyperframes 执行 docs/plans/2026-05-04-claude-19-tips-motion-v2.md。
+请在 /Users/chenhuajin/项目/视频制作台/hyperframes 执行 docs/plans/2026-05-04-claude-19-tips-motion-v2.md。
 必须先使用 superpowers:executing-plans。
 目标是生成 2026-05-03/claude-19-tips-remotion/out/claude-19-tips-motion-only-v2.mp4。
 关键要求：全画面居中、真实终端/Claude Code UI 动效、参考人声 + 低音量动作音效、不渲染参考视频画面、不引用旧 SRT。

@@ -103,7 +103,7 @@ lobehub 总共有 200+ 厂商，本清单只是常用子集。
 2. **id 规则**：全小写、无分隔符。`ClaudeCode` → `claudecode`，`GeminiCLI` → `geminicli`。
 3. 拉下来：
    ```bash
-   cd ~/项目/参考仓库/hyperframes/assets/logos
+   cd ~/项目/视频制作台/hyperframes/assets/logos
    curl -sfLO "https://registry.npmmirror.com/@lobehub/icons-static-svg/latest/files/icons/<id>-color.svg"
    ```
    然后更新本表。

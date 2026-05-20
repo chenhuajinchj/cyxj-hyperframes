@@ -60,7 +60,7 @@ npx hyperframes render --quality standard \
 
 ## 中文环境
 
-- 仓库本身在 `~/项目/参考仓库/hyperframes/`，命令注意 UTF-8
+- 仓库本身在 `~/项目/视频制作台/hyperframes/`，命令注意 UTF-8
 - 模板默认字体栈：`"Noto Sans SC", "Inter", sans-serif`，代码用 `JetBrains Mono`
 
 ## 个人笔记（gitignored，AI 可读，不要在公开输出引用具体内容）

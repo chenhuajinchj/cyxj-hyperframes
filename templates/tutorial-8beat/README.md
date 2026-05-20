@@ -33,9 +33,9 @@
 ### 1. 复制到日期工作区
 
 ```bash
-cp -R ~/项目/参考仓库/hyperframes/templates/tutorial-8beat \
-       ~/项目/参考仓库/hyperframes/2026-MM-DD/your-topic
-cd ~/项目/参考仓库/hyperframes/2026-MM-DD/your-topic
+cp -R ~/项目/视频制作台/hyperframes/templates/tutorial-8beat \
+       ~/项目/视频制作台/hyperframes/2026-MM-DD/your-topic
+cd ~/项目/视频制作台/hyperframes/2026-MM-DD/your-topic
 ```
 
 ### 2. 修改 meta.json

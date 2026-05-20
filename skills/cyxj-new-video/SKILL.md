@@ -9,7 +9,7 @@ description: 中文 YouTube 教程视频的全生命周期助手（基于 HyperF
 
 ## 工作目录默认为仓库根
 
-`~/项目/参考仓库/hyperframes/`。新工程建在 `2026-MM-DD/<slug>/` 下。归档到 `videos/<日期>-<slug>/`。模板源在 `templates/`。
+`~/项目/视频制作台/hyperframes/`。新工程建在 `2026-MM-DD/<slug>/` 下。归档到 `videos/<日期>-<slug>/`。模板源在 `templates/`。
 
 ## 触发分流
 
@@ -121,7 +121,7 @@ cd $DATE/<slug>/
 ### A5. 告知用户开始干活
 
 ```
-✅ 工程建好了：~/项目/参考仓库/hyperframes/2026-MM-DD/<slug>/
+✅ 工程建好了：~/项目/视频制作台/hyperframes/2026-MM-DD/<slug>/
 
 下一步等你提供：
 1. 文案（每个 beat 的字幕、标题）

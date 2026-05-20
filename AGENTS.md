@@ -117,7 +117,7 @@ XCYJ（陈与小金）的 YouTube 教程视频**生产工作台**——基于 He
 
 ## 中文环境注意
 
-- 路径含中文（仓库本身在 `~/项目/参考仓库/hyperframes/`），所有命令注意 UTF-8
+- 路径含中文（仓库本身在 `~/项目/视频制作台/hyperframes/`），所有命令注意 UTF-8
 - 模板默认字体栈：`"Noto Sans SC", "Inter", sans-serif`（中文 hero 字偏 Noto）；`JetBrains Mono` 用于终端/代码片段
 - headless Chromium 渲染时 Google Fonts CDN 偶尔超时会回退系统字体——重渲一次或本地化字体
 

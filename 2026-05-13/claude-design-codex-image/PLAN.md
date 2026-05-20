@@ -271,7 +271,7 @@ Tier 0 定 metaphor（"光柱下来 / 人形被抓出来 / 物体掉落"），Ti
 - `2026-05-13/claude-design-codex-image/compositions/01-hook.html` ~ `13-outro.html` —— 每个加 idle motion + 非均匀 stagger + entry/exit blur transition + hero 招式
 
 **参考源**（已读 / 已 fetch）：
-- `/Users/chenhuajin/项目/参考仓库/hyperframes/MOTION_PHILOSOPHY.md` —— 11 Laws + 完整 motion vocab + GSAP recipe（§2.4 移动词表、§3.4 whip、§3.5 recolor、§3.11 camera pan）
+- `/Users/chenhuajin/项目/视频制作台/hyperframes/MOTION_PHILOSOPHY.md` —— 11 Laws + 完整 motion vocab + GSAP recipe（§2.4 移动词表、§3.4 whip、§3.5 recolor、§3.11 camera pan）
 - `https://gsap.com/docs/v3/Installation/` —— v3.15 全 free，CDN 加载所有 plugin
 - `https://hyperframes.mintlify.app/launch-videos.md` —— HeyGen 官方 launch 工程参考
 - `2026-05-13/AI生图(1).srt` —— **每个动效都对齐这个时间码**

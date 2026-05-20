@@ -28,7 +28,7 @@
 
 ### 1.2 存放位置（约定）
 ```
-/Users/chenhuajin/项目/参考仓库/hyperframes/参考图/<topic-slug>/
+/Users/chenhuajin/项目/视频制作台/hyperframes/参考图/<topic-slug>/
 ```
 - `<topic-slug>` 用 kebab-case，如 `claude-code-tricks` / `ai-agent-promo`
 - 截图命名保留原文件名（屏幕截图时间戳即可）
@@ -45,8 +45,8 @@ main agent 至少 Read 这些张数：
 
 ### 2.1 必读
 按顺序 Read：
-1. `/Users/chenhuajin/项目/参考仓库/hyperframes/MY_VISUAL_DNA.md`（小陈个人美学）
-2. `/Users/chenhuajin/项目/参考仓库/hyperframes/MOTION_PHILOSOPHY.md`（普适纪律，可只读 §0 十大法则）
+1. `/Users/chenhuajin/项目/视频制作台/hyperframes/MY_VISUAL_DNA.md`（小陈个人美学）
+2. `/Users/chenhuajin/项目/视频制作台/hyperframes/MOTION_PHILOSOPHY.md`（普适纪律，可只读 §0 十大法则）
 
 ### 2.2 强制产出：DNA 对照表
 

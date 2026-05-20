@@ -40,7 +40,7 @@ zlib 必须在一个 hyperframes 工程目录里运行（不是仓库根）。
 
 ```bash
 jq -r '.[] | select(.tags | tostring | test("transition|shader")) | "\(.name) — \(.title)"' \
-  ~/项目/参考仓库/hyperframes/templates/catalog.json
+  ~/项目/视频制作台/hyperframes/templates/catalog.json
 ```
 
 按 `tags` 过滤：

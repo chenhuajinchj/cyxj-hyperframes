@@ -5,7 +5,7 @@
 ## 快速重启
 
 ```bash
-cd "/Users/chenhuajin/项目/参考仓库/hyperframes/.claude/worktrees/ai-image-workflow-video/2026-05-13/claude-design-codex-image"
+cd "/Users/chenhuajin/项目/视频制作台/hyperframes/.claude/worktrees/ai-image-workflow-video/2026-05-13/claude-design-codex-image"
 npx hyperframes preview    # http://localhost:3002
 ```
 
@@ -100,7 +100,7 @@ cp 2026-05-13/claude-design-codex-image/assets/logos/{jimeng,lovart,openai}.svg 
 ## 接手后第一步
 
 ```bash
-cd "/Users/chenhuajin/项目/参考仓库/hyperframes/.claude/worktrees/ai-image-workflow-video/2026-05-13/claude-design-codex-image"
+cd "/Users/chenhuajin/项目/视频制作台/hyperframes/.claude/worktrees/ai-image-workflow-video/2026-05-13/claude-design-codex-image"
 # preview 仍在 3002 端口跑（PID 70580 检查）；不在的话：
 npx hyperframes preview
 # 然后用户在浏览器里看：

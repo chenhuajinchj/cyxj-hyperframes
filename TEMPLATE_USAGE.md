@@ -31,8 +31,8 @@
 
 ```bash
 # 1. 复制到日期工作区
-cp -R ~/项目/参考仓库/hyperframes/templates/tutorial-8beat \
-       ~/项目/参考仓库/hyperframes/2026-MM-DD/your-topic
+cp -R ~/项目/视频制作台/hyperframes/templates/tutorial-8beat \
+       ~/项目/视频制作台/hyperframes/2026-MM-DD/your-topic
 
 # 2. 改 meta.json 的 id（xcyj-tutorial-8beat-PLACEHOLDER → 你的 id）
 # 3. 在 index.html 改对应 id（共 2 处）和 data-duration（默认 64.6）
@@ -68,7 +68,7 @@ npx hyperframes preview
 ### 1. 复制工程
 
 ```bash
-cd ~/项目/参考仓库/hyperframes/hyperframes-student-kit/video-projects
+cd ~/项目/视频制作台/hyperframes/hyperframes-student-kit/video-projects
 cp -R xcyj-codex-claude-intro xcyj-NEW-TOPIC-intro
 cd xcyj-NEW-TOPIC-intro
 ```
@@ -126,7 +126,7 @@ cd xcyj-NEW-TOPIC-intro
 
 ```bash
 # 必须从工程目录跑
-cd ~/项目/参考仓库/hyperframes/hyperframes-student-kit/video-projects/xcyj-NEW-TOPIC-intro
+cd ~/项目/视频制作台/hyperframes/hyperframes-student-kit/video-projects/xcyj-NEW-TOPIC-intro
 
 npx hyperframes lint                         # 必须 0 errors
 npx hyperframes preview                      # http://localhost:3002 验收
