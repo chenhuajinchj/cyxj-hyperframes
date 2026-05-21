@@ -641,16 +641,6 @@
         -webkit-text-fill-color: transparent;
       }
 
-      /* 中间衔接小字 */
-      [data-composition-id="ch0-cold-open"] .sec-e .bridge-line {
-        font-family: "Noto Sans SC", "Inter", sans-serif;
-        font-weight: 400;
-        font-size: 32px;
-        letter-spacing: 0.04em;
-        color: #5A4F46;
-        opacity: 0;
-        text-align: center;
-      }
     </style>
 
     <!-- ============================================================
@@ -814,8 +804,6 @@
           <span class="chip-arrow">→</span>
           <div class="chip target">Anthropic 对手公司</div>
         </div>
-
-        <div class="bridge-line">在 OpenAI 被反超的同一个月，去了反超它的那家</div>
 
         <div class="question-stack">
           <h1 class="q q1">为什么是<span class="hot-word">这个时间点</span>？</h1>
@@ -1178,13 +1166,6 @@
       tl.to(root + ' .sec-e .chip-row .chip.target',
         { boxShadow: '0 0 0 2px rgba(217, 119, 87, 0.55), 0 10px 32px rgba(217, 119, 87, 0.42)', duration: 0.3, yoyo: true, repeat: 1, ease: 'power2.inOut' },
         27.3 + 3.3
-      );
-
-      // ─── 中间衔接小字 ───
-      tl.fromTo(root + ' .sec-e .bridge-line',
-        { y: 12, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 0.6, ease: 'power3.out' },
-        27.3 + 4.2
       );
 
       // ─── 问句 1：为什么是这个时间点？（t=6.3-9.0）───
