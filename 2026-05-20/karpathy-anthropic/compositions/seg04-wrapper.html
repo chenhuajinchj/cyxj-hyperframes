@@ -1,0 +1,888 @@
+<template id="seg04-wrapper-template">
+  <div data-composition-id="seg04-wrapper" data-width="1920" data-height="1080">
+    <style>
+      [data-composition-id="seg04-wrapper"] {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 50% 52%, rgba(217, 119, 87, 0.14), transparent 34%),
+          linear-gradient(180deg, #fbf6ed 0%, #f7f2ea 100%);
+        color: #2b2622;
+        font-family: "Noto Sans SC", "Inter", sans-serif;
+      }
+
+      [data-composition-id="seg04-wrapper"]::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(43, 38, 34, 0.055) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(43, 38, 34, 0.055) 1px, transparent 1px);
+        background-size: 80px 80px;
+        pointer-events: none;
+      }
+
+      [data-composition-id="seg04-wrapper"]::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at center, transparent 45%, rgba(43, 38, 34, 0.11) 100%),
+          linear-gradient(90deg, rgba(255,255,255,0.20), transparent 18%, transparent 82%, rgba(255,255,255,0.20));
+        pointer-events: none;
+      }
+
+      [data-composition-id="seg04-wrapper"] .sec {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      [data-composition-id="seg04-wrapper"] .scene-content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+      }
+
+      [data-composition-id="seg04-wrapper"] .mono {
+        font-family: "JetBrains Mono", "SF Mono", monospace;
+      }
+
+      [data-composition-id="seg04-wrapper"] .chrome {
+        font-weight: 900;
+        letter-spacing: 0;
+        line-height: 0.95;
+        color: #2b2622;
+        background-image: linear-gradient(180deg,
+          #2b2622 0%, #5f564f 12%, #ffffff 35%, #cfc6ba 63%, #5a5149 86%, #2b2622 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 18px 32px rgba(43, 38, 34, 0.24));
+      }
+
+      [data-composition-id="seg04-wrapper"] .hot {
+        background-image: linear-gradient(180deg, #fff3ea 0%, #f4b29b 40%, #d97757 74%, #8b3d28 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: #8b3d28;
+      }
+
+      [data-composition-id="seg04-wrapper"] .kicker {
+        font-size: 20px;
+        font-weight: 850;
+        letter-spacing: 0.24em;
+        color: #8b3d28;
+        text-transform: uppercase;
+      }
+
+      [data-composition-id="seg04-wrapper"] .source-frame {
+        position: absolute;
+        overflow: hidden;
+        border-radius: 30px;
+        background: #fffaf2;
+        border: 1px solid rgba(43, 38, 34, 0.14);
+        box-shadow: 0 40px 110px rgba(43, 38, 34, 0.25);
+      }
+
+      [data-composition-id="seg04-wrapper"] .source-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      [data-composition-id="seg04-wrapper"] .grain {
+        position: absolute;
+        inset: -20%;
+        background-image:
+          radial-gradient(circle at 20% 20%, rgba(43,38,34,0.07) 0 1px, transparent 1px),
+          radial-gradient(circle at 80% 50%, rgba(217,119,87,0.08) 0 1px, transparent 1px);
+        background-size: 13px 13px, 17px 17px;
+        opacity: 0.28;
+        mix-blend-mode: multiply;
+        pointer-events: none;
+      }
+
+      [data-composition-id="seg04-wrapper"] .cross {
+        position: absolute;
+        width: 34px;
+        height: 34px;
+        opacity: 0.45;
+      }
+      [data-composition-id="seg04-wrapper"] .cross::before,
+      [data-composition-id="seg04-wrapper"] .cross::after {
+        content: "";
+        position: absolute;
+        background: rgba(43, 38, 34, 0.36);
+      }
+      [data-composition-id="seg04-wrapper"] .cross::before { left: 16px; top: 0; width: 1px; height: 34px; }
+      [data-composition-id="seg04-wrapper"] .cross::after { top: 16px; left: 0; height: 1px; width: 34px; }
+      [data-composition-id="seg04-wrapper"] .c-tl { left: 60px; top: 60px; }
+      [data-composition-id="seg04-wrapper"] .c-tr { right: 60px; top: 60px; }
+      [data-composition-id="seg04-wrapper"] .c-bl { left: 60px; bottom: 60px; }
+      [data-composition-id="seg04-wrapper"] .c-br { right: 60px; bottom: 60px; }
+
+      /* SEC A: wrapper is the lens */
+      [data-composition-id="seg04-wrapper"] .sec-a .scene-content {
+        padding: 112px 130px;
+      }
+
+      [data-composition-id="seg04-wrapper"] .a-hero {
+        position: absolute;
+        left: 118px;
+        bottom: 132px;
+        z-index: 6;
+      }
+
+      [data-composition-id="seg04-wrapper"] .a-title {
+        margin-top: 20px;
+        font-size: 142px;
+      }
+
+      [data-composition-id="seg04-wrapper"] .a-sub {
+        margin-top: 22px;
+        max-width: 770px;
+        font-size: 40px;
+        font-weight: 820;
+        line-height: 1.22;
+        color: #3d352f;
+      }
+
+      [data-composition-id="seg04-wrapper"] .lens {
+        position: absolute;
+        right: 135px;
+        top: 138px;
+        width: 640px;
+        height: 640px;
+        border-radius: 50%;
+        border: 3px solid rgba(217, 119, 87, 0.34);
+        box-shadow:
+          inset 0 0 80px rgba(217, 119, 87, 0.10),
+          0 0 130px rgba(217, 119, 87, 0.24);
+        z-index: 5;
+      }
+
+      [data-composition-id="seg04-wrapper"] .lens::before,
+      [data-composition-id="seg04-wrapper"] .lens::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        border: 1px solid rgba(217, 119, 87, 0.26);
+      }
+      [data-composition-id="seg04-wrapper"] .lens::before { inset: 82px; }
+      [data-composition-id="seg04-wrapper"] .lens::after { inset: 188px; background: rgba(217,119,87,0.16); }
+
+      [data-composition-id="seg04-wrapper"] .lens-core {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 150px;
+        height: 150px;
+        margin-left: -75px;
+        margin-top: -75px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 28%, #fff8ef, #d97757 42%, #8b3d28 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fffaf2;
+        font-size: 22px;
+        font-weight: 900;
+        box-shadow: 0 20px 70px rgba(217,119,87,0.46);
+      }
+
+      [data-composition-id="seg04-wrapper"] .beam {
+        position: absolute;
+        right: 438px;
+        top: 452px;
+        width: 840px;
+        height: 8px;
+        transform-origin: right center;
+        background: linear-gradient(90deg, transparent, rgba(217,119,87,0.62), rgba(255,255,255,0.96));
+        border-radius: 99px;
+        filter: blur(1px);
+        z-index: 4;
+      }
+
+      [data-composition-id="seg04-wrapper"] .a-shot-1 {
+        left: -150px;
+        top: 110px;
+        width: 700px;
+        height: 420px;
+        transform: rotate(-9deg);
+        opacity: 0.62;
+      }
+      [data-composition-id="seg04-wrapper"] .a-shot-2 {
+        right: -110px;
+        bottom: 92px;
+        width: 720px;
+        height: 420px;
+        transform: rotate(7deg);
+        opacity: 0.58;
+      }
+
+      /* SEC B: insult becomes product */
+      [data-composition-id="seg04-wrapper"] .sec-b .scene-content {
+        padding: 90px 116px;
+      }
+
+      [data-composition-id="seg04-wrapper"] .b-left-word {
+        position: absolute;
+        left: 126px;
+        top: 134px;
+        font-size: 124px;
+        z-index: 6;
+      }
+
+      [data-composition-id="seg04-wrapper"] .b-left-word small {
+        display: block;
+        margin-top: 16px;
+        font-size: 32px;
+        color: #8b3d28;
+        -webkit-text-fill-color: #8b3d28;
+        filter: none;
+      }
+
+      [data-composition-id="seg04-wrapper"] .bad-shell {
+        position: absolute;
+        left: 156px;
+        bottom: 136px;
+        width: 510px;
+        height: 292px;
+        border: 5px dashed rgba(139, 61, 40, 0.45);
+        border-radius: 44px;
+        transform: rotate(-7deg);
+      }
+
+      [data-composition-id="seg04-wrapper"] .bad-shell::before {
+        content: "LLM API";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-family: "JetBrains Mono", "SF Mono", monospace;
+        font-size: 42px;
+        font-weight: 900;
+        color: rgba(43, 38, 34, 0.56);
+      }
+
+      [data-composition-id="seg04-wrapper"] .stamp {
+        position: absolute;
+        left: 470px;
+        bottom: 288px;
+        width: 220px;
+        height: 112px;
+        transform: rotate(-15deg);
+        border: 7px solid #8b3d28;
+        color: #8b3d28;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 52px;
+        font-weight: 950;
+        z-index: 8;
+      }
+
+      [data-composition-id="seg04-wrapper"] .product-wall {
+        position: absolute;
+        right: 100px;
+        top: 92px;
+        width: 980px;
+        height: 830px;
+        z-index: 5;
+      }
+
+      [data-composition-id="seg04-wrapper"] .product-wall .source-frame {
+        width: 610px;
+        height: 346px;
+      }
+
+      [data-composition-id="seg04-wrapper"] .p-cursor { left: 60px; top: 28px; transform: rotate(4deg); }
+      [data-composition-id="seg04-wrapper"] .p-perplexity { right: 20px; top: 244px; transform: rotate(-5deg); }
+      [data-composition-id="seg04-wrapper"] .p-claude { left: 0; bottom: 18px; transform: rotate(3deg); }
+
+      [data-composition-id="seg04-wrapper"] .perplexity-signal {
+        position: absolute;
+        right: 36px;
+        top: 250px;
+        width: 560px;
+        height: 300px;
+        transform: rotate(-5deg);
+        border-radius: 34px;
+        background:
+          radial-gradient(circle at 28% 50%, rgba(43, 38, 34, 0.18), transparent 9%),
+          radial-gradient(circle at 50% 50%, rgba(217, 119, 87, 0.18), transparent 11%),
+          radial-gradient(circle at 72% 50%, rgba(43, 38, 34, 0.14), transparent 9%),
+          rgba(255, 250, 242, 0.72);
+        border: 1px solid rgba(43, 38, 34, 0.13);
+        box-shadow: 0 40px 110px rgba(43, 38, 34, 0.22);
+        z-index: 7;
+      }
+
+      [data-composition-id="seg04-wrapper"] .perplexity-signal::before,
+      [data-composition-id="seg04-wrapper"] .perplexity-signal::after {
+        content: "";
+        position: absolute;
+        left: 140px;
+        right: 140px;
+        top: 50%;
+        height: 3px;
+        background: linear-gradient(90deg, rgba(43,38,34,0.16), rgba(217,119,87,0.62), rgba(43,38,34,0.16));
+      }
+
+      [data-composition-id="seg04-wrapper"] .perplexity-signal::after {
+        transform: rotate(90deg);
+      }
+
+      [data-composition-id="seg04-wrapper"] .perplexity-name {
+        position: absolute;
+        left: 38px;
+        bottom: 32px;
+        font-size: 42px;
+        font-weight: 900;
+        color: #2b2622;
+      }
+
+      [data-composition-id="seg04-wrapper"] .p-claude {
+        z-index: 6;
+      }
+
+      [data-composition-id="seg04-wrapper"] .b-product-word {
+        position: absolute;
+        right: 132px;
+        bottom: 96px;
+        z-index: 9;
+        font-size: 96px;
+        text-align: right;
+      }
+
+      [data-composition-id="seg04-wrapper"] .b-product-word .line2 {
+        display: block;
+        margin-top: 8px;
+        font-size: 58px;
+        color: #8b3d28;
+        -webkit-text-fill-color: #8b3d28;
+        filter: none;
+      }
+
+      /* SEC C: benchmark vs environment */
+      [data-composition-id="seg04-wrapper"] .sec-c .scene-content {
+        padding: 96px 128px;
+      }
+
+      [data-composition-id="seg04-wrapper"] .race-title {
+        position: absolute;
+        left: 128px;
+        top: 118px;
+        font-size: 82px;
+        z-index: 5;
+      }
+
+      [data-composition-id="seg04-wrapper"] .track {
+        position: absolute;
+        left: 132px;
+        top: 335px;
+        width: 720px;
+        display: flex;
+        flex-direction: column;
+        gap: 42px;
+        z-index: 4;
+      }
+
+      [data-composition-id="seg04-wrapper"] .runner {
+        display: grid;
+        grid-template-columns: 160px 1fr 70px;
+        align-items: center;
+        gap: 24px;
+        font-weight: 850;
+        color: #2b2622;
+      }
+
+      [data-composition-id="seg04-wrapper"] .runner-name {
+        font-size: 30px;
+      }
+
+      [data-composition-id="seg04-wrapper"] .runner-line {
+        height: 18px;
+        border-radius: 999px;
+        background: rgba(43,38,34,0.09);
+        overflow: hidden;
+      }
+
+      [data-composition-id="seg04-wrapper"] .runner-line span {
+        display: block;
+        width: 100%;
+        height: 100%;
+        transform: scaleX(0.18);
+        transform-origin: left center;
+        background: linear-gradient(90deg, #5a4f46, #d97757);
+        border-radius: 999px;
+      }
+
+      [data-composition-id="seg04-wrapper"] .runner-score {
+        font-size: 24px;
+        color: #5a4f46;
+      }
+
+      [data-composition-id="seg04-wrapper"] .split-prism {
+        position: absolute;
+        right: 145px;
+        top: 218px;
+        width: 710px;
+        height: 620px;
+        z-index: 5;
+      }
+
+      [data-composition-id="seg04-wrapper"] .prism-core {
+        position: absolute;
+        left: 72px;
+        top: 220px;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #fff8ef, #d97757 42%, #8b3d28 100%);
+        box-shadow: 0 28px 90px rgba(217,119,87,0.42);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fffaf2;
+        font-size: 24px;
+        font-weight: 950;
+      }
+
+      [data-composition-id="seg04-wrapper"] .prism-ray {
+        position: absolute;
+        left: 228px;
+        height: 7px;
+        width: 375px;
+        transform-origin: left center;
+        border-radius: 999px;
+        background: linear-gradient(90deg, rgba(217,119,87,0.85), rgba(217,119,87,0.08));
+      }
+      [data-composition-id="seg04-wrapper"] .ray-1 { top: 234px; transform: rotate(-20deg); }
+      [data-composition-id="seg04-wrapper"] .ray-2 { top: 306px; transform: rotate(0deg); }
+      [data-composition-id="seg04-wrapper"] .ray-3 { top: 378px; transform: rotate(20deg); }
+
+      [data-composition-id="seg04-wrapper"] .outcome {
+        position: absolute;
+        right: 0;
+        width: 330px;
+        padding: 22px 26px;
+        border-left: 5px solid #d97757;
+        background: linear-gradient(90deg, rgba(217,119,87,0.12), rgba(255,250,242,0.0));
+        box-shadow: none;
+        border-radius: 0;
+        font-size: 26px;
+        font-weight: 860;
+      }
+      [data-composition-id="seg04-wrapper"] .o1 { top: 118px; }
+      [data-composition-id="seg04-wrapper"] .o2 { top: 274px; }
+      [data-composition-id="seg04-wrapper"] .o3 { top: 430px; }
+
+      /* SEC D: official layers orbit around model */
+      [data-composition-id="seg04-wrapper"] .sec-d .scene-content {
+        padding: 74px 106px;
+      }
+
+      [data-composition-id="seg04-wrapper"] .orbit-title {
+        position: absolute;
+        left: 116px;
+        top: 94px;
+        font-size: 92px;
+        z-index: 8;
+      }
+
+      [data-composition-id="seg04-wrapper"] .orbit {
+        position: absolute;
+        left: 50%;
+        top: 53%;
+        width: 820px;
+        height: 820px;
+        margin-left: -410px;
+        margin-top: -410px;
+        border-radius: 50%;
+        z-index: 4;
+      }
+
+      [data-composition-id="seg04-wrapper"] .orbit-ring {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        border-radius: 50%;
+        border: 2px solid rgba(217,119,87,0.24);
+        transform: translate(-50%, -50%);
+      }
+      [data-composition-id="seg04-wrapper"] .or1 { width: 180px; height: 180px; background: rgba(217,119,87,0.88); box-shadow: 0 0 80px rgba(217,119,87,0.42); }
+      [data-composition-id="seg04-wrapper"] .or2 { width: 330px; height: 330px; }
+      [data-composition-id="seg04-wrapper"] .or3 { width: 490px; height: 490px; }
+      [data-composition-id="seg04-wrapper"] .or4 { width: 650px; height: 650px; }
+      [data-composition-id="seg04-wrapper"] .or5 { width: 810px; height: 810px; border-color: rgba(217,119,87,0.48); box-shadow: 0 0 120px rgba(217,119,87,0.15); }
+
+      [data-composition-id="seg04-wrapper"] .model-dot {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 28px;
+        color: #fffaf2;
+        font-weight: 950;
+        z-index: 8;
+      }
+
+      [data-composition-id="seg04-wrapper"] .orbit-label {
+        position: absolute;
+        padding: 13px 20px;
+        border-radius: 999px;
+        background: rgba(255,250,242,0.88);
+        border: 1px solid rgba(217,119,87,0.35);
+        box-shadow: 0 16px 46px rgba(43,38,34,0.14);
+        font-size: 23px;
+        font-weight: 850;
+        color: #2b2622;
+        z-index: 9;
+        white-space: nowrap;
+      }
+      [data-composition-id="seg04-wrapper"] .ol-code { left: 578px; top: 240px; }
+      [data-composition-id="seg04-wrapper"] .ol-memory { left: 90px; top: 344px; }
+      [data-composition-id="seg04-wrapper"] .ol-sub { right: 80px; top: 454px; }
+      [data-composition-id="seg04-wrapper"] .ol-hooks { left: 184px; bottom: 150px; }
+      [data-composition-id="seg04-wrapper"] .ol-mcp { right: 176px; bottom: 116px; }
+
+      [data-composition-id="seg04-wrapper"] .doc-slice {
+        position: absolute;
+        width: 420px;
+        height: 238px;
+        opacity: 0.42;
+        filter: saturate(0.75);
+      }
+      [data-composition-id="seg04-wrapper"] .d-code { right: 70px; top: 116px; transform: rotate(5deg); }
+      [data-composition-id="seg04-wrapper"] .d-memory { left: 70px; bottom: 108px; transform: rotate(-6deg); }
+      [data-composition-id="seg04-wrapper"] .d-mcp { right: 98px; bottom: 82px; transform: rotate(-4deg); }
+
+      /* SEC E: creator workflow becomes a film montage */
+      [data-composition-id="seg04-wrapper"] .sec-e .scene-content {
+        padding: 84px 110px;
+      }
+
+      [data-composition-id="seg04-wrapper"] .e-title {
+        position: absolute;
+        left: 108px;
+        top: 74px;
+        font-size: 86px;
+        z-index: 10;
+      }
+
+      [data-composition-id="seg04-wrapper"] .paper-storm {
+        position: absolute;
+        left: 100px;
+        top: 210px;
+        width: 660px;
+        height: 650px;
+        z-index: 5;
+      }
+
+      [data-composition-id="seg04-wrapper"] .paper {
+        position: absolute;
+        width: 310px;
+        height: 190px;
+        padding: 22px;
+        box-sizing: border-box;
+        border-radius: 22px;
+        background: rgba(255,250,242,0.82);
+        border: 1px solid rgba(139,61,40,0.20);
+        box-shadow: 0 22px 70px rgba(43,38,34,0.16);
+        color: #5a4f46;
+        font-size: 24px;
+        font-weight: 850;
+      }
+      [data-composition-id="seg04-wrapper"] .paper b {
+        display: block;
+        margin-bottom: 18px;
+        color: #8b3d28;
+        font-family: "JetBrains Mono", "SF Mono", monospace;
+        font-size: 18px;
+      }
+      [data-composition-id="seg04-wrapper"] .paper::after {
+        content: "";
+        display: block;
+        margin-top: 22px;
+        width: 78%;
+        height: 10px;
+        border-radius: 99px;
+        background: rgba(43,38,34,0.14);
+        box-shadow: 0 24px 0 rgba(43,38,34,0.10), 0 48px 0 rgba(217,119,87,0.14);
+      }
+      [data-composition-id="seg04-wrapper"] .p1 { left: 10px; top: 16px; transform: rotate(-10deg); }
+      [data-composition-id="seg04-wrapper"] .p2 { left: 286px; top: 90px; transform: rotate(7deg); }
+      [data-composition-id="seg04-wrapper"] .p3 { left: 96px; top: 300px; transform: rotate(12deg); }
+      [data-composition-id="seg04-wrapper"] .p4 { left: 338px; top: 380px; transform: rotate(-8deg); }
+
+      [data-composition-id="seg04-wrapper"] .context-engine {
+        position: absolute;
+        left: 760px;
+        top: 188px;
+        width: 310px;
+        height: 610px;
+        border-radius: 999px;
+        border: 2px solid rgba(217,119,87,0.38);
+        background: radial-gradient(circle at center, rgba(217,119,87,0.16), rgba(255,250,242,0.40));
+        box-shadow: inset 0 0 60px rgba(217,119,87,0.14), 0 0 90px rgba(217,119,87,0.16);
+        z-index: 6;
+      }
+
+      [data-composition-id="seg04-wrapper"] .engine-chip {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 220px;
+        padding: 17px 12px;
+        border-radius: 18px;
+        background: rgba(255,250,242,0.88);
+        border: 1px solid rgba(217,119,87,0.30);
+        color: #8b3d28;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 880;
+        box-shadow: 0 12px 34px rgba(43,38,34,0.11);
+      }
+      [data-composition-id="seg04-wrapper"] .ec1 { top: 74px; }
+      [data-composition-id="seg04-wrapper"] .ec2 { top: 204px; }
+      [data-composition-id="seg04-wrapper"] .ec3 { top: 334px; }
+      [data-composition-id="seg04-wrapper"] .ec4 { top: 464px; }
+
+      [data-composition-id="seg04-wrapper"] .final-script {
+        position: absolute;
+        right: 112px;
+        top: 168px;
+        width: 690px;
+        height: 660px;
+        border-radius: 34px;
+        background: rgba(255,250,242,0.88);
+        border: 1px solid rgba(217,119,87,0.34);
+        box-shadow: 0 42px 120px rgba(43,38,34,0.22);
+        padding: 54px 58px;
+        box-sizing: border-box;
+        z-index: 7;
+        transform: rotate(2deg);
+      }
+
+      [data-composition-id="seg04-wrapper"] .final-script h3 {
+        margin: 0 0 34px;
+        font-size: 48px;
+        color: #2b2622;
+      }
+
+      [data-composition-id="seg04-wrapper"] .script-line {
+        height: 18px;
+        border-radius: 99px;
+        margin-bottom: 24px;
+        background: rgba(43,38,34,0.15);
+        transform-origin: left center;
+      }
+      [data-composition-id="seg04-wrapper"] .script-line.hotline {
+        background: linear-gradient(90deg, rgba(217,119,87,0.85), rgba(217,119,87,0.18));
+      }
+
+      [data-composition-id="seg04-wrapper"] .final-tag {
+        position: absolute;
+        right: 44px;
+        bottom: 38px;
+        padding: 16px 22px;
+        border-radius: 999px;
+        background: rgba(217,119,87,0.16);
+        color: #8b3d28;
+        font-size: 24px;
+        font-weight: 900;
+      }
+
+      [data-composition-id="seg04-wrapper"] .closing-line {
+        position: absolute;
+        left: 116px;
+        right: 116px;
+        bottom: 56px;
+        text-align: center;
+        font-size: 80px;
+        z-index: 10;
+      }
+    </style>
+
+    <div class="cross c-tl"></div>
+    <div class="cross c-tr"></div>
+    <div class="cross c-bl"></div>
+    <div class="cross c-br"></div>
+    <div class="grain"></div>
+
+    <section class="sec sec-a">
+      <div class="scene-content">
+        <div class="source-frame a-shot-1"><img src="assets/seg04-official/01-cursor-home.png" alt="Cursor official page" /></div>
+        <div class="source-frame a-shot-2"><img src="assets/seg04-official/03-claude-code-overview.png" alt="Claude Code official page" /></div>
+        <div class="beam"></div>
+        <div class="lens"><div class="lens-core mono">MODEL</div></div>
+        <div class="a-hero">
+          <div class="kicker mono">CH4 / WRAPPER IS THE PRODUCT</div>
+          <div class="a-title chrome"><span class="hot">Wrapper</span><br />不是壳</div>
+          <div class="a-sub">它像镜头：同一个模型，经过不同环境，拍出来完全不是同一张照片。</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec-b">
+      <div class="scene-content">
+        <div class="b-left-word chrome">2023<br /><span class="hot">贬义</span><small>“不就是套了个壳？”</small></div>
+        <div class="bad-shell"></div>
+        <div class="stamp">贬义</div>
+        <div class="product-wall">
+          <div class="source-frame p-cursor"><img src="assets/seg04-official/01-cursor-home.png" alt="Cursor" /></div>
+          <div class="perplexity-signal"><div class="perplexity-name">Perplexity</div></div>
+          <div class="source-frame p-claude"><img src="assets/seg04-official/03-claude-code-overview.png" alt="Claude Code" /></div>
+        </div>
+        <div class="b-product-word chrome">2025<br /><span class="hot">它变成产品</span><span class="line2">Cursor / Perplexity / Claude Code</span></div>
+      </div>
+    </section>
+
+    <section class="sec sec-c">
+      <div class="scene-content">
+        <div class="race-title chrome">别只盯着<br /><span class="hot">模型跑分</span></div>
+        <div class="track">
+          <div class="runner"><div class="runner-name">GPT</div><div class="runner-line"><span class="r-gpt"></span></div><div class="runner-score mono">92</div></div>
+          <div class="runner"><div class="runner-name">Claude</div><div class="runner-line"><span class="r-claude"></span></div><div class="runner-score mono">94</div></div>
+          <div class="runner"><div class="runner-name">Gemini</div><div class="runner-line"><span class="r-gemini"></span></div><div class="runner-score mono">90</div></div>
+          <div class="runner"><div class="runner-name">DeepSeek</div><div class="runner-line"><span class="r-deepseek"></span></div><div class="runner-score mono">91</div></div>
+        </div>
+        <div class="split-prism">
+          <div class="prism-core mono">same<br />model</div>
+          <div class="prism-ray ray-1"></div>
+          <div class="prism-ray ray-2"></div>
+          <div class="prism-ray ray-3"></div>
+          <div class="outcome o1">裸聊天：还要你解释一遍</div>
+          <div class="outcome o2">工具壳：能做，但不懂项目</div>
+          <div class="outcome o3">项目化 Wrapper：直接命中语气和路径</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec-d">
+      <div class="scene-content">
+        <div class="orbit-title chrome">真正的产品<br />在<span class="hot">外层</span></div>
+        <div class="source-frame doc-slice d-code"><img src="assets/seg04-official/03-claude-code-overview.png" alt="Claude Code docs" /></div>
+        <div class="source-frame doc-slice d-memory"><img src="assets/seg04-official/04-claude-code-memory.png" alt="Claude Code memory docs" /></div>
+        <div class="source-frame doc-slice d-mcp"><img src="assets/seg04-official/07-mcp-intro.png" alt="MCP docs" /></div>
+        <div class="orbit">
+          <div class="orbit-ring or5"></div>
+          <div class="orbit-ring or4"></div>
+          <div class="orbit-ring or3"></div>
+          <div class="orbit-ring or2"></div>
+          <div class="orbit-ring or1"></div>
+          <div class="model-dot mono">MODEL</div>
+          <div class="orbit-label ol-code">Claude Code</div>
+          <div class="orbit-label ol-memory">Memory / CLAUDE.md</div>
+          <div class="orbit-label ol-sub">Subagents</div>
+          <div class="orbit-label ol-hooks">Hooks</div>
+          <div class="orbit-label ol-mcp">MCP</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec-e">
+      <div class="scene-content">
+        <div class="e-title chrome">从来回修改<br /><span class="hot">到一轮可用</span></div>
+        <div class="paper-storm">
+          <div class="paper p1"><b>v1</b>腔调不对</div>
+          <div class="paper p2"><b>v2</b>表达被改</div>
+          <div class="paper p3"><b>v3</b>还要解释背景</div>
+          <div class="paper p4"><b>v4</b>终于接近，但太慢</div>
+        </div>
+        <div class="context-engine">
+          <div class="engine-chip ec1">我是谁</div>
+          <div class="engine-chip ec2">频道语气</div>
+          <div class="engine-chip ec3">项目路径</div>
+          <div class="engine-chip ec4">不可改表达</div>
+        </div>
+        <div class="final-script">
+          <h3>主持稿 · 可直接录</h3>
+          <div class="script-line" style="width: 95%"></div>
+          <div class="script-line hotline" style="width: 88%"></div>
+          <div class="script-line" style="width: 76%"></div>
+          <div class="script-line" style="width: 91%"></div>
+          <div class="script-line hotline" style="width: 82%"></div>
+          <div class="final-tag">一轮可用</div>
+        </div>
+        <div class="closing-line chrome">模型没换，<span class="hot">环境变了</span>，结果变了</div>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const root = '[data-composition-id="seg04-wrapper"]';
+
+      tl.set(root + ' .sec', { autoAlpha: 0 }, 0);
+      tl.set(root + ' .sec-a', { autoAlpha: 1 }, 0);
+
+      tl.from(root + ' .a-shot-1', { x: -140, y: 30, rotation: -15, duration: 2.6, ease: 'power3.out' }, 0);
+      tl.from(root + ' .a-shot-2', { x: 160, y: -20, rotation: 13, duration: 2.6, ease: 'power3.out' }, 0.15);
+      tl.from(root + ' .beam', { scaleX: 0, duration: 1.2, ease: 'power3.out' }, 0.8);
+      tl.from(root + ' .lens', { scale: 0.82, rotation: -18, duration: 1.35, ease: 'back.out(1.45)' }, 1.0);
+      tl.from(root + ' .a-hero', { y: 54, opacity: 0, duration: 0.9, ease: 'power3.out' }, 1.35);
+      tl.to(root + ' .lens', { rotation: 9, scale: 1.04, duration: 7.8, ease: 'sine.inOut' }, 5.0);
+      tl.to(root + ' .a-shot-1', { x: 54, y: -18, scale: 1.05, duration: 9.5, ease: 'none' }, 5.0);
+      tl.to(root + ' .a-shot-2', { x: -64, y: 18, scale: 1.06, duration: 9.5, ease: 'none' }, 5.0);
+
+      tl.set(root + ' .sec-a', { autoAlpha: 0 }, 20.6);
+      tl.set(root + ' .sec-b', { autoAlpha: 1 }, 20.6);
+      tl.from(root + ' .b-left-word', { x: -78, opacity: 0, duration: 0.75, ease: 'power3.out' }, 20.6);
+      tl.from(root + ' .bad-shell', { scale: 0.86, rotation: -18, opacity: 0, duration: 0.8, ease: 'back.out(1.45)' }, 21.25);
+      tl.from(root + ' .stamp', { scale: 1.65, rotation: -34, opacity: 0, duration: 0.35, ease: 'back.out(2.2)' }, 25.8);
+      tl.to(root + ' .bad-shell', { scale: 0.82, opacity: 0.36, duration: 0.55, ease: 'power2.inOut' }, 28.0);
+      tl.from(root + ' .product-wall .source-frame', { x: 160, y: 60, rotation: 0, opacity: 0, duration: 0.85, stagger: 0.22, ease: 'power3.out' }, 31.0);
+      tl.from(root + ' .b-product-word', { y: 72, opacity: 0, duration: 0.75, ease: 'power3.out' }, 35.8);
+      tl.to(root + ' .product-wall', { x: -44, scale: 1.04, duration: 12.0, ease: 'none' }, 39.0);
+      tl.to(root + ' .stamp', { opacity: 0.18, scale: 0.92, duration: 1.0, ease: 'power2.out' }, 42.0);
+
+      tl.set(root + ' .sec-b', { autoAlpha: 0 }, 53.4);
+      tl.set(root + ' .sec-c', { autoAlpha: 1 }, 53.4);
+      tl.from(root + ' .race-title', { y: 48, opacity: 0, duration: 0.75, ease: 'power3.out' }, 53.4);
+      tl.from(root + ' .runner', { x: -70, opacity: 0, duration: 0.48, stagger: 0.14, ease: 'power2.out' }, 55.0);
+      tl.to(root + ' .r-gpt', { scaleX: 0.90, duration: 0.8, ease: 'power2.out' }, 56.3);
+      tl.to(root + ' .r-claude', { scaleX: 0.94, duration: 0.8, ease: 'power2.out' }, 56.45);
+      tl.to(root + ' .r-gemini', { scaleX: 0.86, duration: 0.8, ease: 'power2.out' }, 56.6);
+      tl.to(root + ' .r-deepseek', { scaleX: 0.88, duration: 0.8, ease: 'power2.out' }, 56.75);
+      tl.from(root + ' .prism-core', { scale: 0.7, opacity: 0, duration: 0.65, ease: 'back.out(1.55)' }, 63.0);
+      tl.from(root + ' .prism-ray', { scaleX: 0, opacity: 0, duration: 0.62, stagger: 0.14, ease: 'power3.out' }, 64.0);
+      tl.from(root + ' .outcome', { x: 68, opacity: 0, duration: 0.54, stagger: 0.26, ease: 'power3.out' }, 65.0);
+      tl.to(root + ' .split-prism', { x: -22, scale: 1.035, duration: 13.0, ease: 'none' }, 70.0);
+
+      tl.set(root + ' .sec-c', { autoAlpha: 0 }, 85.1);
+      tl.set(root + ' .sec-d', { autoAlpha: 1 }, 85.1);
+      tl.from(root + ' .orbit-title', { x: -60, opacity: 0, duration: 0.8, ease: 'power3.out' }, 85.1);
+      tl.from(root + ' .doc-slice', { y: 52, opacity: 0, duration: 0.7, stagger: 0.18, ease: 'power3.out' }, 86.4);
+      tl.from(root + ' .orbit-ring', { scale: 0.62, opacity: 0, duration: 0.64, stagger: 0.18, ease: 'back.out(1.35)' }, 88.8);
+      tl.from(root + ' .model-dot', { scale: 0.7, opacity: 0, duration: 0.45, ease: 'back.out(1.7)' }, 89.2);
+      tl.from(root + ' .orbit-label', { scale: 0.84, opacity: 0, duration: 0.44, stagger: 0.36, ease: 'back.out(1.55)' }, 96.0);
+      tl.to(root + ' .orbit', { rotation: 6, scale: 1.06, duration: 28.0, ease: 'sine.inOut' }, 100.0);
+      tl.to(root + ' .or5', { boxShadow: '0 0 160px rgba(217,119,87,0.34)', duration: 1.0, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 127.0);
+
+      tl.set(root + ' .sec-d', { autoAlpha: 0 }, 134.0);
+      tl.set(root + ' .sec-e', { autoAlpha: 1 }, 134.0);
+      tl.from(root + ' .paper', { x: -90, y: 60, rotation: 0, duration: 0.62, stagger: 0.18, ease: 'power3.out' }, 134.0);
+      tl.from(root + ' .context-engine', { scaleY: 0.72, opacity: 0, duration: 0.72, ease: 'power3.out' }, 141.0);
+      tl.from(root + ' .engine-chip', { scale: 0.84, opacity: 0, duration: 0.4, stagger: 0.22, ease: 'back.out(1.6)' }, 143.0);
+      tl.to(root + ' .paper', { x: 92, y: -24, rotation: 0, opacity: 0.36, duration: 1.1, stagger: 0.09, ease: 'power2.inOut' }, 153.0);
+      tl.from(root + ' .final-script', { x: 120, scale: 0.94, opacity: 0, duration: 0.85, ease: 'power3.out' }, 164.0);
+      tl.from(root + ' .script-line', { scaleX: 0, opacity: 0, duration: 0.45, stagger: 0.12, ease: 'power2.out' }, 165.2);
+      tl.from(root + ' .final-tag', { scale: 0.72, opacity: 0, duration: 0.45, ease: 'back.out(1.8)' }, 168.5);
+      tl.from(root + ' .closing-line', { y: 54, opacity: 0, duration: 0.85, ease: 'power3.out' }, 190.0);
+      tl.to(root + ' .closing-line', { scale: 1.02, duration: 0.9, yoyo: true, repeat: 1, ease: 'sine.inOut' }, 195.0);
+
+      window.__timelines['seg04-wrapper'] = tl;
+    </script>
+  </div>
+</template>
