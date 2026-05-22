@@ -143,3 +143,58 @@
 | 7 | https://www.anthropic.com/news/enterprise-ai-services-company | Anthropic JV 公告原文 | 高（一手源） |
 | 8 | https://newsroom.ibm.com/2025-05-06-ibm-study-ceos-double-down-on-ai-while-navigating-enterprise-hurdles | IBM CEO Study 2025 新闻稿 | 高（一手源） |
 | 9 | https://www.mindstudio.ai/blog/ai-adoption-gap-86-percent-capability-25-percent-usage/ | IBM IBV 86%/25% 数字引用 | 中（单源二次引用） |
+
+---
+
+## 5. Anthropic 创始团队 ex-OpenAI 史（seg05 SEC E + seg06 汇流 用）
+
+> 研究补充日期：2026-05-22 · 用于 seg05 ch5 merge 段末转折钩 + seg06 汇流段三组对位起点
+> 双源核对：grok-search × 2 + Wikipedia 一手
+
+### 5.1 公司创立时间与背景
+
+- **创立**：2021 年初（announced 约 2-3 月）
+- **结构**：Public Benefit Corporation（公益企业），focused on Constitutional AI + AI safety
+- **核心七人 ex-OpenAI**：Dario Amodei / Daniela Amodei / Tom Brown / Sam McCandlish / Jared Kaplan / Jack Clark / Chris Olah + Benjamin Mann
+- **离开 OpenAI 原因**（多源一致）：
+  - 安全优先级与公司方向分歧
+  - 商业化节奏过快
+  - OpenAI 加深与 Microsoft 合作的担忧
+- **置信度**：高（Wikipedia + Wired Levy 报道 + WSJ Seetharaman 报道一致）
+
+### 5.2 4 个核心人物（seg05 SEC E 4 头像）
+
+| 人物 | Anthropic 角色 | OpenAI 角色 | GPT-3 paper 关联 | 视频用素材 | 置信度 |
+|---|---|---|---|---|---|
+| **Dario Amodei** | CEO & Co-Founder | VP of Research（GPT-2/GPT-3 主导，2016 加入） | scaling laws & 大规模 LM 推动者 | `assets/portraits/dario.jpg` | 高（多源） |
+| **Daniela Amodei**（Dario 妹妹） | President & Co-Founder | VP of Safety & Policy（GPT-2 期间 manager） | 否（管理 + 安全） | `assets/portraits/daniela.png`（Wired headshot crop 2024-2025）| 高（Wikipedia / Time100 AI 2023 / Wired Levy 2025） |
+| **Tom Brown** | Chief Compute Officer & Co-Founder | research engineering lead | **GPT-3 paper first author**（"Language Models are Few-Shot Learners" 2020）| `assets/portraits/tombrown.png`（Business Insider headshot crop 2025-08）| 高（Forbes profile + Business Insider） |
+| **Jared Kaplan** | Chief Science Officer & Co-Founder | 顾问研究员（理论物理学家背景）| 2020 **Scaling Laws paper 主作者**（与 McCandlish/Brown/Dario）| `assets/portraits/jaredkaplan.jpg`（TC AI Sessions backdrop）| 高（arxiv 2001.08361） |
+
+### 5.3 GPT-3 paper 创始团队重合
+
+- **GPT-3 paper**："Language Models are Few-Shot Learners"（2020）
+- **first author**：Tom B. Brown
+- **共同作者**（与 Anthropic 创始团队 / 早期员工重合）：Benjamin Mann（co-founder）、Dario Amodei、Jared Kaplan（理论支撑作者）
+- **scaling laws paper**（2020-01）：Jared Kaplan / Sam McCandlish / Tom Brown / Dario Amodei + 等
+- **小陈片中口播 line 229**：「CEO 总裁 GPT-3 主要作者 / 它的核心团队其实全部都是从 OpenAI 离职之后出去创办的」 = **多源核实属实**
+
+### 5.4 引用源
+
+| # | URL | 类型 | 置信度 |
+|---|-----|------|--------|
+| 10 | https://en.wikipedia.org/wiki/Anthropic | 公司 wiki 页（七 co-founders + 离开背景） | 高（一手 wiki + 多 ref） |
+| 11 | https://en.wikipedia.org/wiki/Dario_Amodei | Dario wiki 页 | 高 |
+| 12 | https://en.wikipedia.org/wiki/Daniela_Amodei | Daniela wiki 页（VP Safety/Policy + Time100 AI 2023） | 高 |
+| 13 | https://www.wired.com/story/anthropic-benevolent-artificial-intelligence/ | Levy Wired 长文（2025-03，含创始过程细节） | 高 |
+| 14 | https://www.wired.com/story/big-interview-event-daniela-amodei-anthropic/ | Daniela Wired interview event（hero 真照来源） | 高 |
+| 15 | https://www.businessinsider.com/anthropic-cofounder-tom-brown-career-advice-ai-2025-8 | Tom Brown BI career advice（hero 真照来源） | 高 |
+| 16 | https://www.forbes.com/profile/tom-brown/ | Forbes profile Tom Brown | 中（profile 非长文） |
+| 17 | https://arxiv.org/abs/2001.08361 | Scaling Laws paper arxiv 原文 | 高（一手论文） |
+| 18 | https://x.com/nickevanjoseph/status/2056760504949842219 | Joseph 推文原文（seg05 SEC A 引文 panel 引用） | 高（一手源；X 反爬无法抓 PNG，多媒体文字引用核对） |
+
+### 5.5 seg05 SEC E 不展开的事
+
+- ❌ Karpathy 跟 Anthropic 创始团队**没有**直接共事关系（2017 离开 OpenAI 时 Dario 在但 Daniela / Tom / Jared 之中部分还没加入）—— seg05 SEC E 只揭示「都是 OpenAI 出身」，不暗示「Karpathy 跟他们一直共事」
+- ❌ 不在 SEC E 详细展开"GPT-3 paper first author = Tom Brown"等细节（chip 标 `GPT-3 author · ex-OpenAI` 即可，详细技术血缘留给 seg06 三组对位）
+- ❌ 不引用 Jared Kaplan 物理学家背景（与本段主轴无关）
