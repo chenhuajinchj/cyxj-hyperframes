@@ -297,6 +297,57 @@
         font-weight: 800;
         opacity: 0;
       }
+      /* SEC B · Ramp 真截图出处卡（替换 overtake-badge 单 chip） */
+      [data-composition-id="seg03-momentum"] .ramp-source-card {
+        width: 100%;
+        max-width: 480px;
+        border-radius: 22px;
+        background: #fff;
+        border: 1px solid rgba(43, 38, 34, 0.13);
+        box-shadow: 0 22px 54px rgba(43, 38, 34, 0.18);
+        overflow: hidden;
+        opacity: 0;
+      }
+      [data-composition-id="seg03-momentum"] .ramp-source-card .img-clip {
+        width: 100%;
+        height: 230px;
+        overflow: hidden;
+        background: #faf6ef;
+        position: relative;
+      }
+      [data-composition-id="seg03-momentum"] .ramp-source-card .img-clip img {
+        width: 100%;
+        height: auto;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      [data-composition-id="seg03-momentum"] .ramp-source-card .footer {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        background: #fbf8f3;
+        border-top: 1px solid rgba(43, 38, 34, 0.08);
+      }
+      [data-composition-id="seg03-momentum"] .ramp-source-card .footer img {
+        height: 22px;
+        width: auto;
+      }
+      [data-composition-id="seg03-momentum"] .ramp-source-card .footer .label {
+        font-family: "Noto Sans SC", "Inter", sans-serif;
+        font-weight: 700;
+        font-size: 17px;
+        color: #2B2622;
+        letter-spacing: -0.005em;
+      }
+      [data-composition-id="seg03-momentum"] .ramp-source-card .footer .url {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 13px;
+        color: #5A4F46;
+        margin-left: auto;
+      }
       [data-composition-id="seg03-momentum"] .impact-ripple {
         position: absolute;
         left: 814px;
@@ -435,6 +486,66 @@
         font-size: 72px;
         text-align: center;
         opacity: 0;
+      }
+      /* SEC D · Anthropic JV 公告真截图卡（横向 archive，d-title 与 partner-grid 之间） */
+      [data-composition-id="seg03-momentum"] .anthropic-source-card {
+        width: 1080px;
+        border-radius: 22px;
+        background: #fff;
+        border: 1px solid rgba(43, 38, 34, 0.13);
+        box-shadow: 0 20px 50px rgba(43, 38, 34, 0.18);
+        overflow: hidden;
+        opacity: 0;
+        display: grid;
+        grid-template-columns: 420px 1fr;
+      }
+      [data-composition-id="seg03-momentum"] .anthropic-source-card .img-clip {
+        width: 420px;
+        height: 200px;
+        overflow: hidden;
+        background: #faf6ef;
+        position: relative;
+      }
+      [data-composition-id="seg03-momentum"] .anthropic-source-card .img-clip img {
+        width: 420px;
+        height: auto;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      [data-composition-id="seg03-momentum"] .anthropic-source-card .meta {
+        padding: 26px 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+      }
+      [data-composition-id="seg03-momentum"] .anthropic-source-card .meta .tag {
+        display: inline-flex;
+        width: max-content;
+        padding: 5px 12px;
+        border-radius: 6px;
+        background: rgba(217, 119, 87, 0.14);
+        color: #B5563D;
+        font-family: "Inter", "Noto Sans SC", sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.10em;
+      }
+      [data-composition-id="seg03-momentum"] .anthropic-source-card .meta .title {
+        font-family: "Inter", "Noto Sans SC", sans-serif;
+        font-weight: 750;
+        font-size: 20px;
+        line-height: 1.30;
+        color: #2B2622;
+        letter-spacing: -0.005em;
+      }
+      [data-composition-id="seg03-momentum"] .anthropic-source-card .meta .url {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        color: #5A4F46;
+        margin-top: 2px;
       }
       [data-composition-id="seg03-momentum"] .partner-grid {
         width: 100%;
@@ -692,7 +803,16 @@
               <div class="duel-value oa">32.3%</div>
             </div>
           </div>
-          <div class="overtake-badge">Ramp 企业 AI 采纳指数</div>
+          <div class="ramp-source-card">
+            <div class="img-clip">
+              <img src="../assets/screenshots/ramp-ai-index-may-2026.png" alt="Ramp AI Index May 2026" />
+            </div>
+            <div class="footer">
+              <img src="../assets/logos/ramp.svg" alt="Ramp" />
+              <span class="label">AI Index · May 2026</span>
+              <span class="url">ramp.com</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -737,6 +857,16 @@
       <div class="scene-content">
         <div class="chip date-chip mono">2026.05.04</div>
         <div class="chrome d-title">A 社把 momentum<br />接到企业服务公司</div>
+        <div class="anthropic-source-card">
+          <div class="img-clip">
+            <img src="../assets/screenshots/anthropic-jv-announcement.png" alt="Anthropic Enterprise AI Services Company announcement" />
+          </div>
+          <div class="meta">
+            <div class="tag">ANNOUNCEMENT · 2026.05.04</div>
+            <div class="title">Building a new enterprise AI services company with Blackstone, Hellman &amp; Friedman, and Goldman Sachs</div>
+            <div class="url">anthropic.com / news / enterprise-ai-services-company</div>
+          </div>
+        </div>
         <div class="partner-grid">
           <div class="partner-card anthropic">
             <img src="../assets/logos/anthropic.svg" alt="Anthropic" />
@@ -913,9 +1043,9 @@
         { y: 0, scale: 1, autoAlpha: 1, duration: 0.65, ease: 'power3.out' },
         28.15
       );
-      tl.fromTo(root + ' .sec-b .overtake-badge',
-        { y: 22, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 0.5, ease: 'back.out(1.6)' },
+      tl.fromTo(root + ' .sec-b .ramp-source-card',
+        { y: 36, scale: 0.96, autoAlpha: 0 },
+        { y: 0, scale: 1, autoAlpha: 1, duration: 0.85, ease: 'power3.out' },
         30.8
       );
 
@@ -955,15 +1085,21 @@
         { y: 0, autoAlpha: 1, scale: 1, duration: 0.75, ease: 'power3.out' },
         57.75
       );
+      // Anthropic JV 真截图卡（d-title 后入场，给 ~2.4s 静审时间再接 partner-grid）
+      tl.fromTo(root + ' .sec-d .anthropic-source-card',
+        { y: 30, scale: 0.97, autoAlpha: 0 },
+        { y: 0, scale: 1, autoAlpha: 1, duration: 0.8, ease: 'power3.out' },
+        58.6
+      );
       tl.fromTo(root + ' .sec-d .partner-card',
         { y: 44, autoAlpha: 0, scale: 0.94 },
         { y: 0, autoAlpha: 1, scale: 1, duration: 0.58, stagger: 0.16, ease: 'back.out(1.25)' },
-        61.0
+        62.5
       );
       tl.fromTo(root + ' .sec-d .company-card',
         { y: 38, autoAlpha: 0, scale: 0.96 },
         { y: 0, autoAlpha: 1, scale: 1, duration: 0.65, ease: 'power3.out' },
-        67.2
+        67.8
       );
 
       // SEC E
