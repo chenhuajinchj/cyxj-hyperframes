@@ -34,23 +34,17 @@ hyperframes-student-kit/
 hyperframes-launches/
 
 # ============================================================
-# 软链回上游（依赖 gitignored 目标，跨机器需重建）
+# 软链回上游 / .agents 真物理位置（依赖 gitignored 目标，跨机器需重建）
+# 规则：
+#   - .claude/skills/* 和 .agents/skills/* 默认 ignore（上游官方 skill 软链 / 真目录）
+#   - cyxj-* 反向 include → 本仓库 wrapper skill 入口必须 commit
+# 跨机器恢复：npx skills add heygen-com/hyperframes -y（重建上游软链）
 # ============================================================
 MOTION_PHILOSOPHY.md
-.claude/skills/gsap
-.claude/skills/hyperframes
-.claude/skills/hyperframes-cli
-.claude/skills/hyperframes-registry
-.claude/skills/website-to-hyperframes
-.claude/skills/make-a-video
-.claude/skills/short-form-video
-.agents/skills/gsap
-.agents/skills/hyperframes
-.agents/skills/hyperframes-cli
-.agents/skills/hyperframes-registry
-.agents/skills/website-to-hyperframes
-.agents/skills/make-a-video
-.agents/skills/short-form-video
+.claude/skills/*
+!.claude/skills/cyxj-*
+.agents/skills/*
+!.agents/skills/cyxj-*
 
 # ============================================================
 # 工具状态 / 缓存 / 构建产物
@@ -88,6 +82,8 @@ templates/**/.claude/
 
 # 工程内 debug-shots 也排除（如需 commit 个别图：git add -f）
 **/debug-shots/
+# hyperframes snapshot 自动产物（接触表 / 单帧 png / 描述 md，工程级 debug）
+**/snapshots/
 
 # ============================================================
 # 系统 / IDE
