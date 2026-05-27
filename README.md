@@ -12,7 +12,7 @@
 
 这个仓库是我（陈与小金）做中文 Claude Code 教程视频用的**生产工作台**：
 
-- **9 条已发布视频**的全部源工程（HTML + GSAP，可直接复制改文案再发一条）
+- **10 条已发布视频**的全部源工程（HTML + GSAP，可直接复制改文案再发一条）
 - 1 个真模板 [`tutorial-8beat`](templates/tutorial-8beat) + 一组可复用组件（终端 UI / 入场动效等）
 - 我让 Claude Code 和 Codex 协作做视频的 [skill](skills/)（从 0 建工程 → 推荐参考 → lint / preview / render → 归档）
 - 一套吃过亏沉淀下来的硬约束 [`docs/HARD_CONSTRAINTS.md`](docs/HARD_CONSTRAINTS.md) 和借鉴外部视觉的方法 [`docs/STYLE_BORROW_PLAYBOOK.md`](docs/STYLE_BORROW_PLAYBOOK.md)

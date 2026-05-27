@@ -8,16 +8,24 @@ XCYJ（陈与小金）的 YouTube 教程视频生产工作台 —— 基于 HeyG
 
 ```
 videos/<日期>-<slug>/        已发布视频源工程（10 条）
-templates/                   tutorial-8beat 真模板 + components + inspirations + catalog.json（只读参考，活工程在 2026-MM-DD/）
 2026-MM-DD/<slug>/           当前在做的工作区（可并存多个日期）
-归档/                         早期废弃探索（保留参考，不在这里做活）
-skills/cyxj-{new-video,add-block}/   skill 真源（.claude/.agents 软链到这里）
-docs/HARD_CONSTRAINTS.md     硬约束单源（12 条完整版）
-docs/REFERENCE_INDEX.md      上游参考工程 + catalog 零件 + skill 索引
+templates/                   tutorial-8beat 真模板 + components + inspirations + catalog.json（只读参考，活工程在 2026-MM-DD/）
+hyperframes-launches/        发布类视频参考模板（含 SCRIPT.md / STORYBOARD.md / 完整 compositions/，可复用）
+hyperframes-student-kit/     Nate Herk 上游 student kit（视觉灵感、参考工程、基础 skill 来源）
 assets/logos/                33 个 AI 厂商 / 工具 SVG（产品引用用真 logo，不准 emoji / 字母）
+归档/                         早期废弃探索（保留参考，不在这里做活）
+
+skills/cyxj-{new-video,add-block}/   skill 真源（.claude/.agents 软链到这里）
+docs/HARD_CONSTRAINTS.md     硬约束单源（30 主条目 + 子条目，§1–§19 实战坑 / §20–§30 官方底线）
+docs/REFERENCE_INDEX.md      上游参考工程 + catalog 零件 + skill 索引
+docs/ops.md                  CLI 版本 / 维护脚本 / 软链架构
+
+MOTION_PHILOSOPHY.md         10 大动效法则（软链到 hyperframes-student-kit/，每个新工程必读）
+TEMPLATE_USAGE.md            模板复用 checklist（README 5 分钟上手的详细版）
 ```
 
-`参考库/` 与 `assets/` 并列；`remotion-text-effects/` 是 Remotion（非 HyperFrames）管线，不要混做。
+`参考库/` 是作品快照参考池：`heygen-launches/`（HeyGen 官方作品）、`nate-demos/`（Nate Herk 作品）、`我的作品/`（自己历史作品快照），跟 `assets/`（工程引用的最终素材）并列分工。
+`remotion-text-effects/` 是 Remotion（非 HyperFrames）管线，不要混做。
 
 ## skill 触发词
 
@@ -25,9 +33,25 @@ assets/logos/                33 个 AI 厂商 / 工具 SVG（产品引用用真 
 - 「加个零件 / 加个转场 / 加 macos 通知 / Logo 落版」→ `/cyxj-add-block`
 - 插 AI 厂商 / 工具 logo：先查 `assets/logos/`，命名规则全小写无分隔符（`claudecode.svg`），文档见 [`assets/logos/LOGOS.md`](assets/logos/LOGOS.md)。`claude-code-logo.png` 像素拟人头像不在本库，由各视频工程自存
 
-## 硬约束精选 10 条（完整 30 条见 [`docs/HARD_CONSTRAINTS.md`](docs/HARD_CONSTRAINTS.md)）
+## GSAP skill 强制约定（写动画前必读）
 
-> 完整 30 条分两层：**§1–§19 本仓库实战坑** + **§20–§30 官方非可商量底线**（2026-05-22 同步 hyperframes@0.6.33）。
+工程里 `index.html` 通过 CDN 引入 `gsap@3.14.2`。**改 `compositions/*.html` 里任何 GSAP 代码前，先 invoke 对应 `gsap-skills`，不要凭记忆写 API**：
+
+| 任务 | 必 invoke 的 skill |
+|---|---|
+| 基础 tween / easing / stagger / matchMedia | `gsap-skills:gsap-core` |
+| 多段时序串联（镜头切换、阶段过渡、beat 内时间轴） | `gsap-skills:gsap-timeline` |
+| 文字逐字（SplitText）/ SVG 描边（DrawSVG）/ Flip 转场 / MorphSVG | `gsap-skills:gsap-plugins` |
+| ScrollTrigger / pin / scrub | `gsap-skills:gsap-scrolltrigger` |
+| 动画卡 / preview 掉帧 / render 慢 | `gsap-skills:gsap-performance` |
+
+GSAP 3.13+ 全部插件免费（SplitText / DrawSVG / MorphSVG / ScrollSmoother 可放心用），不必担心付费授权。
+
+> 遇到动画任务自动 invoke，不需用户每次提醒。
+
+## 硬约束精选 10 条（完整 30 主条目见 [`docs/HARD_CONSTRAINTS.md`](docs/HARD_CONSTRAINTS.md)）
+
+> 完整 30 主条目分两层：**§1–§19 本仓库实战坑** + **§20–§30 官方非可商量底线**（2026-05-22 同步 hyperframes@0.6.33），另含 §15.补 / §26.b 等子条目。
 > 下面 10 条是命中频率最高的速查，**改 compositions/*.html 前必读完整版全文**。
 
 1. **不准** 在 GSAP selector 里用 template literal —— 永远硬编码 `'[data-composition-id="X"] .child'`
