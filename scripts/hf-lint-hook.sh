@@ -25,7 +25,7 @@ esac
 
 # 跳过只读上游 / 参考目录（不是我们手写的 composition）
 case "$file" in
-  *hyperframes-student-kit/*|*hyperframes-launches/*|*/templates/*|*/归档/*|*/参考库/*|*remotion-text-effects/*) exit 0 ;;
+  *hyperframes-student-kit/*|*hyperframes-launches/*|*/templates/*|*/归档/*|*/参考/*|*remotion-text-effects/*) exit 0 ;;
 esac
 
 warnings=""
