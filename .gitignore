@@ -93,6 +93,9 @@ templates/**/.claude/
 *.swp
 
 # 大目录（GB 级，本地保留，不进 git）
+# /参考/ = 原 参考库/（我的作品快照）+ hyperframes-launches 上游仓
+/参考/
+/素材/录屏/
 参考库/
 归档/
 
